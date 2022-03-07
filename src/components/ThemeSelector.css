@@ -15,3 +15,12 @@
   margin-left: 15px;
   border-radius: 50%;
 }
+.mode-toggle {
+  margin-right: auto;
+  align-items: center;
+}
+.mode-toggle img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}

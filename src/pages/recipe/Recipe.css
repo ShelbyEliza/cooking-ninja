@@ -19,7 +19,7 @@
 .recipe li {
   list-style-type: none;
   margin-right: 10px;
-  color: rgb(95, 95, 95);
+  color: rgb(36, 36, 36);
   vertical-align: text-bottom;
 }
 .recipe li::after {
@@ -31,4 +31,12 @@
 .recipe .method {
   text-align: left;
   line-height: 1.5em;
+}
+.recipe.dark {
+  background: #69445b;
+  color: #e4e4e4;
+}
+.recipe.dark li,
+.recipe.dark .page-title {
+  color: #acacac;
 }

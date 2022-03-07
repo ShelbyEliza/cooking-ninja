@@ -2,3 +2,6 @@
 .App {
   min-height: 100%;
 }
+.App.dark {
+  background: #39303d;
+}
