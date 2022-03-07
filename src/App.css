@@ -1,0 +1,4 @@
+/* brings styles to bottom of page: min-height */
+.App {
+  min-height: 100%;
+}

@@ -1,0 +1,33 @@
+.create {
+  max-width: 480px;
+  margin: 60px auto;
+}
+.create h2 {
+  color: rgb(49, 32, 54);
+}
+.create label span {
+  display: block;
+  margin: 10px 0 10px;
+}
+.create p {
+  margin-top: 10px;
+  font-size: 0.8em;
+}
+.create button {
+  display: block;
+  font-size: 0.8em;
+  padding: 8px 20px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--peach-nav);
+  cursor: pointer;
+  text-decoration: none;
+  margin: 20px auto;
+}
+.ingredients {
+  display: flex;
+  align-items: center;
+}
+.ingredients button {
+  margin: 0 0 0 10px;
+}
