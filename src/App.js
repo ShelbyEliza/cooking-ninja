@@ -7,6 +7,7 @@ import Home from "./pages/home/Home";
 import Create from "./pages/create/Create";
 import Search from "./pages/search/Search";
 import Recipe from "./pages/recipe/Recipe";
+import Update from "./pages/update/Update";
 
 // styles:
 import "./App.css";
@@ -32,6 +33,9 @@ function App() {
           </Route>
           <Route path="/recipes/:id">
             <Recipe />
+          </Route>
+          <Route path="/update/:id">
+            <Update />
           </Route>
         </Switch>
       </BrowserRouter>

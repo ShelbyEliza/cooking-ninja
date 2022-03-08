@@ -16,11 +16,14 @@ export default function Home() {
   useEffect(() => {
     setIsPending(true);
 
-    // async - fetches a snapshot of data
-    projectFirestore
-      .collection("recipes")
-      .get()
-      .then((snapshot) => {
+    // async - fetches a snapshot of data initially.
+    // realtime collection data fires function whenever data in function changes.
+    // don't use catch for errors, use onSnapshot's second argument.
+    // needs a clean up function to upsubscibe from this listener
+    // for example, when page is directed away from.
+    // once component unmounts unsub returns and stops listening.
+    const unsub = projectFirestore.collection("recipes").onSnapshot(
+      (snapshot) => {
         if (snapshot.empty) {
           setError("No recipes to load.");
           setIsPending(false);
@@ -32,11 +35,14 @@ export default function Home() {
           setData(results);
           setIsPending(false);
         }
-      })
-      .catch((err) => {
+      },
+      (err) => {
         setError(err.message);
         setIsPending(false);
-      });
+      }
+    );
+
+    return () => unsub();
   }, []);
 
   return (

@@ -1,0 +1,36 @@
+.update {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* max-width: 480px; */
+  color: floralwhite;
+}
+.update .page-title {
+  color: floralwhite;
+}
+/* .update label span {
+  display: block;
+  margin: 10px 0 10px;
+}
+.update p {
+  margin-top: 10px;
+  font-size: 0.8em;
+}
+.update button {
+  display: block;
+  font-size: 0.8em;
+  padding: 8px 20px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--peach-nav);
+  cursor: pointer;
+  text-decoration: none;
+  margin: 20px auto;
+}
+.ingredients {
+  display: flex;
+  align-items: center;
+}
+.ingredients button {
+  margin: 0 0 0 10px;
+} */

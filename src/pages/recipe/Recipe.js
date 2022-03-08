@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { projectFirestore } from "../../firebase/config";
 import { useTheme } from "../../hooks/useTheme";
+import { Link } from "react-router-dom";
 
 // styles:
 import "./Recipe.css";
@@ -17,11 +18,10 @@ export default function Recipe() {
   useEffect(() => {
     setIsPending(true);
 
-    projectFirestore
+    const unsub = projectFirestore
       .collection("recipes")
       .doc(id)
-      .get()
-      .then((doc) => {
+      .onSnapshot((doc) => {
         if (doc.exists) {
           setIsPending(false);
           setRecipe(doc.data());
@@ -30,7 +30,15 @@ export default function Recipe() {
           setError("Could not locate recipe.");
         }
       });
+
+    return () => unsub();
   }, [id]);
+
+  // const handleUpdate = () => {
+  //   projectFirestore.collection("recipes").doc(id).update({
+  //     title: "Something Completely Different",
+  //   });
+  // };
 
   return (
     <div className={`recipe ${mode}`}>
@@ -46,6 +54,10 @@ export default function Recipe() {
             ))}
           </ul>
           <p>{recipe.method}</p>
+          <Link to={`/update/${id}`} className="brand">
+            <p>Update</p>
+          </Link>
+          {/* <button onClick={handleUpdate}>Update Recipe</button> */}
         </>
       )}
     </div>
