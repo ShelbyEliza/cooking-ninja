@@ -1,8 +1,8 @@
 // styles:
 import "./Create.css";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
-import { useFetch } from "../../hooks/useFetch";
+import { projectFirestore } from "../../firebase/config";
 
 export default function Create() {
   const [title, setTitle] = useState("");
@@ -12,20 +12,24 @@ export default function Create() {
   const [ingredients, setIngredients] = useState([]);
   const ingredientInput = useRef(null);
   const history = useHistory();
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const { postData, data, error } = useFetch(
-    "http://localhost:3000/recipes",
-    "POST"
-  );
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    postData({
+    setIsSubmitted(true);
+    const doc = {
       title,
       ingredients,
       method,
       cookingTime: cookingTime + " minutes",
-    });
+    };
+
+    try {
+      await projectFirestore.collection("recipes").add(doc);
+      history.push("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleAdd = (e) => {
@@ -38,15 +42,6 @@ export default function Create() {
     setNewIngredient("");
     ingredientInput.current.focus();
   };
-
-  // redirects after recipe submission:
-  useEffect(() => {
-    if (data) {
-      setTimeout(() => {
-        history.push("/");
-      }, 2000);
-    }
-  }, [data, history]);
 
   return (
     <div className="create">
@@ -101,7 +96,7 @@ export default function Create() {
             required
           />
         </label>
-        {data ? (
+        {isSubmitted ? (
           <button className="button">Adding Recipe...</button>
         ) : (
           <button className="button">Submit</button>
