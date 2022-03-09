@@ -1,14 +1,15 @@
 .update {
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
-  /* max-width: 480px; */
+  align-items: center; */
+  margin: 60px auto;
+  max-width: 480px;
   color: floralwhite;
 }
 .update .page-title {
   color: floralwhite;
 }
-/* .update label span {
+.update label span {
   display: block;
   margin: 10px 0 10px;
 }
@@ -33,4 +34,4 @@
 }
 .ingredients button {
   margin: 0 0 0 10px;
-} */
+}

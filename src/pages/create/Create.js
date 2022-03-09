@@ -21,7 +21,7 @@ export default function Create() {
       title,
       ingredients,
       method,
-      cookingTime: cookingTime + " minutes",
+      cookingTime,
     };
 
     try {

@@ -11,11 +11,11 @@ const Update = () => {
   const [recipe, setRecipe] = useState(null);
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(false);
+  const [newIngredient, setNewIngredient] = useState("");
 
   // const [title, setTitle] = useState("");
   // const [method, setMethod] = useState("");
   // const [cookingTime, setCookingTime] = useState("");
-  // const [newIngredient, setNewIngredient] = useState("");
   // const [ingredients, setIngredients] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -57,16 +57,27 @@ const Update = () => {
     // }
   };
 
-  // const handleAdd = (e) => {
-  //   e.preventDefault();
-  //   const ing = newIngredient.trim();
+  const handleAdd = (e) => {
+    e.preventDefault();
+    const ing = newIngredient.trim();
 
-  //   if (ing && !ingredients.includes(ing)) {
-  //     setIngredients((prevIngredients) => [...prevIngredients, ing]);
-  //   }
-  //   setNewIngredient("");
-  //   ingredientInput.current.focus();
-  // };
+    if (ing && !recipe.ingredients.includes(ing)) {
+      projectFirestore
+        .collection("recipes")
+        .doc(id)
+        .update({
+          ingredients: [...recipe.ingredients, ing],
+        });
+    }
+    setNewIngredient("");
+    ingredientInput.current.focus();
+  };
+
+  const handleRemove = (e) => {
+    // e.preventDefault();
+    // const ing = e.target.value;
+    // projectFirestore.collection("recipes").doc(id).update({ingredients: FieldValue.arrayRemove(ing)})
+  };
 
   return (
     <div className="update">
@@ -82,33 +93,36 @@ const Update = () => {
                 type="text"
                 onChange={(e) => {
                   setRecipe({ ...recipe, title: e.target.value });
-                  console.log(recipe);
                 }}
                 value={recipe.title}
                 required
               />
             </label>
-            {/* <label>
-          <span>Recipe Ingredients</span>
-          <div className="ingredients">
-            <input
-              type="text"
-              onChange={(e) => setRecipe({ ...recipe, ingredients: e.target.value })}
-              value={recipe.ingredients}
-              ref={ingredientInput} // allows us to use this element.
-            />
-            <button onClick={handleAdd} className="btn">
-              Add
-            </button>
-          </div>
-        </label>
 
-        <p>
-          Current Ingredients:{" "}
-          {ingredients.map((i) => (
-            <em key={i}>{i}, </em>
-          ))}
-        </p> */}
+            <label>
+              <div>
+                Current Ingredients:{" "}
+                {recipe.ingredients.map((i) => (
+                  <label key={i}>
+                    <button value={i} onClick={handleRemove}>
+                      {i}
+                    </button>
+                  </label>
+                ))}
+              </div>
+              <span>Recipe Ingredients</span>
+              <div className="ingredients">
+                <input
+                  type="text"
+                  onChange={(e) => setNewIngredient(e.target.value)}
+                  value={newIngredient}
+                  ref={ingredientInput} // allows us to use this element.
+                />
+                <button className="btn" onClick={handleAdd}>
+                  Add
+                </button>
+              </div>
+            </label>
 
             <label>
               <span>Recipe Method:</span>
