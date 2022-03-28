@@ -12,11 +12,18 @@ export default function Navbar() {
   return (
     <div className="navbar" style={{ background: color }}>
       <nav>
-        <Link to="/" className="brand">
-          <h1>Cooking Lady</h1>
+        <div className="with-subtitle">
+          <Link to="/" className="brand">
+            <h1>Larder to Table</h1>
+          </Link>
+          <p className="subtitle">Your Recipe History</p>
+        </div>
+        <div className="search-field">
+          <Searchbar />
+        </div>
+        <Link to="/create" className="create-link">
+          Create Recipe
         </Link>
-        <Searchbar />
-        <Link to="/create">Create Recipe</Link>
       </nav>
     </div>
   );

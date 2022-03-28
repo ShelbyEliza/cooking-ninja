@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Pacifico&display=swap");
 
 :root {
-  --bg-color: #867092;
+  --light-bg: #c3bfc5;
   --yellow-title-accent: #ffe0b1;
   --purple-title-accent: #4a3257;
   --peach-nav: #f1d6d2;
@@ -18,7 +18,7 @@ body {
   font-family: Raleway, sans-serif;
   margin: 0;
   font-size: 1.4em;
-  background: var(--bg-color);
+  background: var(--light-bg);
   color: #333;
 }
 h1,

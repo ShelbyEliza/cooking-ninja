@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 // styles:
-// import "./Searchbar.css";
+import "./Searchbar.css";
 
 export default function Searchbar() {
   const [term, setTerm] = useState("");
@@ -20,6 +20,7 @@ export default function Searchbar() {
       <form onSubmit={handleSubmit}>
         <label htmlFor="search"></label>
         <input
+          className="search-field"
           type="text"
           id="search"
           placeholder="Search"
