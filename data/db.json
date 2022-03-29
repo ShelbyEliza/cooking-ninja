@@ -3,12 +3,7 @@
     {
       "id": "1",
       "title": "Veggie Stew",
-      "ingredients": [
-        "1 Carrot",
-        "1 Leek",
-        "200g Tofu",
-        "300ml Veg stock"
-      ],
+      "ingredients": ["1 Carrot", "1 Leek", "200g Tofu", "300ml Veg stock"],
       "method": "1. Pre-heat the oven to 200C/3C/gas 5. Place the carrot, leek and tofu in a large bowl. Add the stock and mix well. 2. Add the rest of the ingredients and mix well. 3. Place the mixture in a large bowl and cover with a lid. 4. Place the lid on the oven and cook for 40 minutes. 5. Serve with a slaw of your choice",
       "cookingTime": "45 minutes"
     },
@@ -39,12 +34,7 @@
     },
     {
       "title": "Papdi Chaat",
-      "ingredients": [
-        "Chickpeas",
-        "Yogurt",
-        "Mint",
-        "Crispy Chips"
-      ],
+      "ingredients": ["Chickpeas", "Yogurt", "Mint", "Crispy Chips"],
       "method": "Combine ingredients.",
       "cookingTime": "10 minutes",
       "id": "Jo19iGh"
@@ -68,11 +58,7 @@
     },
     {
       "title": "Quesadilla",
-      "ingredients": [
-        "Cheese",
-        "Tortillas",
-        "Hot Sauce"
-      ],
+      "ingredients": ["Cheese", "Tortillas", "Hot Sauce"],
       "method": "Cook it.",
       "cookingTime": "1 minutes",
       "id": "uJJppWZ"
@@ -93,12 +79,7 @@
     },
     {
       "title": "Tomato Sandwich",
-      "ingredients": [
-        "Tomatoes",
-        "Cheese",
-        "Mayonnaise",
-        "Bread"
-      ],
+      "ingredients": ["Tomatoes", "Cheese", "Mayonnaise", "Bread"],
       "method": "Stack ingredients.",
       "cookingTime": "5 minutes",
       "id": "pRldyBp"

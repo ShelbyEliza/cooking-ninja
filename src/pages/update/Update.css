@@ -1,9 +1,6 @@
 .update {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
-  margin: 60px auto;
-  max-width: 480px;
+  margin: 40px auto;
+  max-width: 600px;
   color: floralwhite;
 }
 .update .page-title {
@@ -17,21 +14,58 @@
   margin-top: 10px;
   font-size: 0.8em;
 }
-.update button {
-  display: block;
-  font-size: 0.8em;
-  padding: 8px 20px;
+
+.title-time {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: end;
+  grid-gap: 30px;
+}
+
+.cooking-time {
+  margin-left: 30px;
+}
+.update .btn {
   border: 0;
   border-radius: 4px;
   background: var(--peach-nav);
   cursor: pointer;
   text-decoration: none;
+}
+.update .add {
   margin: 20px auto;
+  padding: 8px 20px;
+  display: block;
+  font-size: 0.8em;
 }
-.ingredients {
+.current-ing {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  padding-right: 10px;
+  justify-content: space-between;
+  /* flex-direction: row wrap; */
 }
-.ingredients button {
-  margin: 0 0 0 10px;
+.current-ing button {
+  padding: 10px;
+  margin: 0;
+}
+.current-ing-list {
+  display: flex;
+  justify-content: space-evenly;
+}
+.remove-ing {
+  border: 0;
+  border-radius: 4px;
+  background: var(--peach-nav);
+  cursor: pointer;
+  text-decoration: none;
+  color: #333;
+  font-size: 0.7em;
+  padding: 6px;
+}
+.remove-ing:hover {
+  background: pink;
+  border: 2px solid rgb(255, 141, 160);
 }

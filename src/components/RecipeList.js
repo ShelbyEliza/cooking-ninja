@@ -12,23 +12,23 @@ export default function RecipeList({ recipes }) {
     return <div className="error">Sorry, no recipes found...</div>;
   }
 
-  const handleDelete = (id) => {
-    projectFirestore.collection("recipes").doc(id).delete();
+  const handleDelete = (recipeID) => {
+    projectFirestore.collection("recipes").doc(recipeID).delete();
   };
 
   return (
     <div className="recipe-list">
       {recipes.map((recipe) => (
-        <div key={recipe.id} className={`card ${mode}`}>
+        <div key={recipe.recipeID} className={`card ${mode}`}>
           <h3>{recipe.title}</h3>
           <p>{recipe.cookingTime} to make.</p>
           <div>{recipe.method.substring(0, 100)}...</div>
-          <Link to={`/recipes/${recipe.id}`}>Cook this!</Link>
+          <Link to={`/recipes/${recipe.recipeID}`}>Cook this!</Link>
           <img
             className="delete"
             src={Trashcan}
             alt="A trashcan, which represents the delete this recipe button."
-            onClick={() => handleDelete(recipe.id)}
+            onClick={() => handleDelete(recipe.recipeID)}
           />
         </div>
       ))}

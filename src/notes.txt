@@ -2,71 +2,86 @@ import "./Update.css";
 import { useParams, useHistory } from "react-router-dom";
 import { projectFirestore } from "../../firebase/config";
 import { useEffect, useState, useRef } from "react";
-import { useFirestore } from "../../hooks/useFirestore";
-import { useDocument } from "../../hooks/useDocument";
 
 const Update = () => {
   const { recipeID } = useParams();
   const history = useHistory();
   const ingredientInput = useRef(null);
-  const { updateDocument, response } = useFirestore("recipes");
-  const { document, error } = useDocument("recipes", recipeID);
 
   const [recipe, setRecipe] = useState(null);
   const [isPending, setIsPending] = useState(false);
-  const [updateError, setUpdateError] = useState(false);
+  const [error, setError] = useState(false);
   const [newIngredient, setNewIngredient] = useState("");
+
+  // const [title, setTitle] = useState("");
+  // const [method, setMethod] = useState("");
+  // const [cookingTime, setCookingTime] = useState("");
+  // const [ingredients, setIngredients] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
     setIsPending(true);
 
-    if (document) {
-      setIsPending(false);
-      setRecipe(document);
-    } else {
-      setUpdateError(error);
-    }
-  }, [document, error]);
+    projectFirestore
+      .collection("recipes")
+      .doc(recipeID)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setIsPending(false);
+          setRecipe(doc.data());
+        } else {
+          setIsPending(false);
+          setError("Could not locate recipe.");
+        }
+      });
+  }, [recipeID]);
 
-  const handleAdd = async (e) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+    // const doc = {
+    //   title,
+    //   ingredients,
+    //   method,
+    //   cookingTime: cookingTime + " minutes",
+    // };
+
+    projectFirestore.collection("recipes").doc(recipeID).update(recipe);
+
+    // try {
+    //   await projectFirestore.collection("recipes").add(doc);
+    //   history.push("/");
+    // } catch (err) {
+    //   console.log(err);
+    // }
+  };
+
+  const handleAdd = (e) => {
     e.preventDefault();
     const ing = newIngredient.trim();
 
-    if (!document.ingredients.includes(ing)) {
-      await updateDocument(recipeID, {
-        ingredients: [...document.ingredients, ing],
-      });
+    if (ing && !recipe.ingredients.includes(ing)) {
+      projectFirestore
+        .collection("recipes")
+        .doc(recipeID)
+        .update({
+          ingredients: [...recipe.ingredients, ing],
+        });
     }
     setNewIngredient("");
     ingredientInput.current.focus();
   };
 
-  const handleRemove = async (e, i) => {
-    e.preventDefault();
-    console.log(i);
-
-    let newIngredients = "";
-    const ing = i;
-
-    newIngredients = document.ingredients.filter((i) => i !== ing);
-
-    await updateDocument(recipeID, {
-      ingredients: newIngredients,
-    });
+  const handleRemove = (e) => {
+    // e.preventDefault();
+    // const ing = e.target.value;
+    // projectFirestore.collection("recipes").doc(recipeID).update({ingredients: FieldValue.arrayRemove(ing)})
   };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitted(true);
-
-    await updateDocument(recipeID, recipe);
-  };
-  console.log(recipe);
 
   return (
     <div>
-      {updateError && <p className="error"> {updateError}</p>}
+      {error && <p className="error"> {error}</p>}
       {isPending && <div className="loading">Loading...</div>}
       {recipe && !isPending && (
         <div className="update">
@@ -88,7 +103,7 @@ const Update = () => {
               <label className="cooking-time">
                 <span>Time (minutes)</span>
                 <input
-                  type="text"
+                  type="number"
                   onChange={(e) =>
                     setRecipe({ ...recipe, cookingTime: e.target.value })
                   }
@@ -103,14 +118,14 @@ const Update = () => {
                 <span>Current Ingredients: </span>
                 <div className="current-ing-list">
                   {recipe.ingredients.map((i) => (
-                    <div
-                      className="remove-ing"
+                    <button
+                      className="btn"
                       key={i}
                       value={i}
-                      onClick={(e) => handleRemove(e, i)}
+                      onClick={handleRemove}
                     >
                       {i}
-                    </div>
+                    </button>
                   ))}
                 </div>
               </label>

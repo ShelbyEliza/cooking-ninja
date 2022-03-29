@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import "./Recipe.css";
 
 export default function Recipe() {
-  const { id } = useParams();
+  const { recipeID } = useParams();
   const { mode } = useTheme();
 
   const [recipe, setRecipe] = useState(null);
@@ -20,7 +20,7 @@ export default function Recipe() {
 
     const unsub = projectFirestore
       .collection("recipes")
-      .doc(id)
+      .doc(recipeID)
       .onSnapshot((doc) => {
         if (doc.exists) {
           setIsPending(false);
@@ -32,10 +32,10 @@ export default function Recipe() {
       });
 
     return () => unsub();
-  }, [id]);
+  }, [recipeID]);
 
   // const handleUpdate = () => {
-  //   projectFirestore.collection("recipes").doc(id).update({
+  //   projectFirestore.collection("recipes").doc(recipeID).update({
   //     title: "Something Completely Different",
   //   });
   // };
@@ -54,7 +54,7 @@ export default function Recipe() {
             ))}
           </ul>
           <p>{recipe.method}</p>
-          <Link to={`/update/${id}`} className="brand">
+          <Link to={`/update/${recipeID}`} className="brand">
             <p>Update</p>
           </Link>
           {/* <button onClick={handleUpdate}>Update Recipe</button> */}
