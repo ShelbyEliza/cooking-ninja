@@ -31,10 +31,10 @@ function App() {
           <Route path="/search">
             <Search />
           </Route>
-          <Route path="/recipes/:recipeID">
+          <Route path="/recipes/:id">
             <Recipe />
           </Route>
-          <Route path="/update/:recipeID">
+          <Route path="/update/:id">
             <Update />
           </Route>
         </Switch>

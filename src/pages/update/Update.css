@@ -6,9 +6,10 @@
 .update .page-title {
   color: floralwhite;
 }
-.update label span {
-  display: block;
-  margin: 10px 0 10px;
+.update input,
+.update textarea {
+  margin-top: 8px;
+  margin-bottom: 16px;
 }
 .update p {
   margin-top: 10px;
@@ -17,13 +18,9 @@
 
 .title-time {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 3fr 1fr;
   align-items: end;
-  grid-gap: 30px;
-}
-
-.cooking-time {
-  margin-left: 30px;
+  gap: 40px;
 }
 .update .btn {
   border: 0;
@@ -31,41 +28,43 @@
   background: var(--peach-nav);
   cursor: pointer;
   text-decoration: none;
-}
-.update .add {
   margin: 20px auto;
   padding: 8px 20px;
   display: block;
   font-size: 0.8em;
-}
-.current-ing {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-
-  padding-right: 10px;
-  justify-content: space-between;
-  /* flex-direction: row wrap; */
-}
-.current-ing button {
-  padding: 10px;
-  margin: 0;
+  text-align: center;
 }
 .current-ing-list {
   display: flex;
   justify-content: space-evenly;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
 }
 .remove-ing {
-  border: 0;
-  border-radius: 4px;
+  padding: 6px;
+  margin: 8px;
+
   background: var(--peach-nav);
-  cursor: pointer;
-  text-decoration: none;
   color: #333;
   font-size: 0.7em;
-  padding: 6px;
+
+  border: 2px solid var(--peach-nav);
+  border-radius: 4px;
+
+  cursor: pointer;
+  text-decoration: none;
 }
 .remove-ing:hover {
   background: pink;
-  border: 2px solid rgb(255, 141, 160);
+  border: 2px solid rgb(253, 109, 121);
+}
+
+.new-ing {
+  display: flex;
+  align-items: center;
+}
+.update .add {
+  margin-bottom: 26px;
+  margin-left: 6px;
 }

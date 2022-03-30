@@ -1,22 +1,20 @@
 import "./Update.css";
 import { useParams, useHistory } from "react-router-dom";
-import { projectFirestore } from "../../firebase/config";
 import { useEffect, useState, useRef } from "react";
 import { useFirestore } from "../../hooks/useFirestore";
 import { useDocument } from "../../hooks/useDocument";
 
 const Update = () => {
-  const { recipeID } = useParams();
+  const { id } = useParams();
   const history = useHistory();
   const ingredientInput = useRef(null);
   const { updateDocument, response } = useFirestore("recipes");
-  const { document, error } = useDocument("recipes", recipeID);
+  const { document, error } = useDocument("recipes", id);
 
   const [recipe, setRecipe] = useState(null);
   const [isPending, setIsPending] = useState(false);
   const [updateError, setUpdateError] = useState(false);
   const [newIngredient, setNewIngredient] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
     setIsPending(true);
@@ -26,15 +24,17 @@ const Update = () => {
       setRecipe(document);
     } else {
       setUpdateError(error);
+      setIsPending(false);
     }
-  }, [document, error]);
+  }, [document, error, response.success, history]);
 
   const handleAdd = async (e) => {
     e.preventDefault();
     const ing = newIngredient.trim();
+    console.log(newIngredient);
 
-    if (!document.ingredients.includes(ing)) {
-      await updateDocument(recipeID, {
+    if (!document.ingredients.includes(ing) && !(ing === "")) {
+      await updateDocument(id, {
         ingredients: [...document.ingredients, ing],
       });
     }
@@ -51,31 +51,36 @@ const Update = () => {
 
     newIngredients = document.ingredients.filter((i) => i !== ing);
 
-    await updateDocument(recipeID, {
+    await updateDocument(id, {
       ingredients: newIngredients,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    setIsPending(true);
 
-    await updateDocument(recipeID, recipe);
+    await updateDocument(id, recipe);
+
+    if (response.success) {
+      setIsPending(false);
+      history.push("/");
+    }
   };
-  console.log(recipe);
 
   return (
-    <div>
+    <div className="update">
       {updateError && <p className="error"> {updateError}</p>}
       {isPending && <div className="loading">Loading...</div>}
       {recipe && !isPending && (
-        <div className="update">
-          <h2 className="page-title">Update</h2>
-          <form onSubmit={handleSubmit}>
+        <div>
+          <h2 className="page-title">Update Recipe</h2>
+          <form id="update-form">
             <div className="title-time">
-              <label>
-                <span>Recipe Title</span>
+              <div>
+                <label htmlFor="recipe-title">Recipe Title</label>
                 <input
+                  id="recipe-title"
                   type="text"
                   onChange={(e) => {
                     setRecipe({ ...recipe, title: e.target.value });
@@ -83,27 +88,29 @@ const Update = () => {
                   value={recipe.title}
                   required
                 />
-              </label>
+              </div>
 
-              <label className="cooking-time">
-                <span>Time (minutes)</span>
+              <div>
+                <label htmlFor="cooking-time">Time (mins)</label>
                 <input
-                  type="text"
+                  id="cooking-time"
+                  type="number"
                   onChange={(e) =>
                     setRecipe({ ...recipe, cookingTime: e.target.value })
                   }
                   value={recipe.cookingTime}
                   required
                 />
-              </label>
+              </div>
             </div>
 
             <div className="ingredient-container">
-              <label className="current-ing">
-                <span>Current Ingredients: </span>
+              <div>
+                <label htmlFor="current-ing">Current Ingredients</label>
                 <div className="current-ing-list">
                   {recipe.ingredients.map((i) => (
                     <div
+                      id="current-ing"
                       className="remove-ing"
                       key={i}
                       value={i}
@@ -113,39 +120,52 @@ const Update = () => {
                     </div>
                   ))}
                 </div>
-              </label>
+              </div>
 
-              <label className="new-ing">
-                <span>Recipe Ingredients</span>
-                <input
-                  type="text"
-                  onChange={(e) => setNewIngredient(e.target.value)}
-                  value={newIngredient}
-                  ref={ingredientInput} // allows us to use this element.
-                />
-                <button className="btn add" onClick={handleAdd}>
-                  Add
-                </button>
-              </label>
+              <div>
+                <label htmlFor="new-ing">Recipe Ingredients</label>
+                <div className="new-ing">
+                  <input
+                    id="new-ing"
+                    type="text"
+                    onChange={(e) => setNewIngredient(e.target.value)}
+                    value={newIngredient}
+                    ref={ingredientInput} // allows us to use this element.
+                  />
+                  <button
+                    // type="button"
+                    id="new-ing"
+                    className="btn add"
+                    onClick={handleAdd}
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
             </div>
 
-            <label>
-              <span>Recipe Method:</span>
+            <div>
+              <label htmlFor="recipe-method">Recipe Method:</label>
               <textarea
+                id="recipe-method"
                 onChange={(e) =>
                   setRecipe({ ...recipe, method: e.target.value })
                 }
                 value={recipe.method}
                 required
               />
-            </label>
-
-            {isSubmitted ? (
-              <button className="btn add">Updating Recipe...</button>
-            ) : (
-              <button className="btn add">Submit</button>
-            )}
+            </div>
           </form>
+
+          {isPending ? (
+            <button className="btn" disabled>
+              Updating Recipe...
+            </button>
+          ) : (
+            <button onClick={handleSubmit} className="btn" form="update-form">
+              Submit
+            </button>
+          )}
         </div>
       )}
     </div>

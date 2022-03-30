@@ -15,6 +15,7 @@ export default function Search() {
 
   const url = "http://localhost:3000/recipes?q=" + query;
   const { error, isPending, data } = useFetch(url);
+  console.log(data);
 
   return (
     <div className={`search-results ${mode}`}>

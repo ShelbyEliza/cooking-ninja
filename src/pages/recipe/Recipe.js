@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import "./Recipe.css";
 
 export default function Recipe() {
-  const { recipeID } = useParams();
+  const { id } = useParams();
   const { mode } = useTheme();
 
   const [recipe, setRecipe] = useState(null);
@@ -20,7 +20,7 @@ export default function Recipe() {
 
     const unsub = projectFirestore
       .collection("recipes")
-      .doc(recipeID)
+      .doc(id)
       .onSnapshot((doc) => {
         if (doc.exists) {
           setIsPending(false);
@@ -32,13 +32,7 @@ export default function Recipe() {
       });
 
     return () => unsub();
-  }, [recipeID]);
-
-  // const handleUpdate = () => {
-  //   projectFirestore.collection("recipes").doc(recipeID).update({
-  //     title: "Something Completely Different",
-  //   });
-  // };
+  }, [id]);
 
   return (
     <div className={`recipe ${mode}`}>
@@ -47,17 +41,16 @@ export default function Recipe() {
       {recipe && (
         <>
           <h2 className="page-title">{recipe.title}</h2>
-          <p>Takes {recipe.cookingTime} to make.</p>
+          <p>Takes {recipe.cookingTime} minutes to make</p>
           <ul>
             {recipe.ingredients.map((ing) => (
               <li key={ing}>{ing}</li>
             ))}
           </ul>
           <p>{recipe.method}</p>
-          <Link to={`/update/${recipeID}`} className="brand">
+          <Link to={`/update/${id}`} className="brand">
             <p>Update</p>
           </Link>
-          {/* <button onClick={handleUpdate}>Update Recipe</button> */}
         </>
       )}
     </div>
