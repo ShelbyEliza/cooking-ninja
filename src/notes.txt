@@ -1,170 +1,29 @@
-import "./Update.css";
-import { useParams, useHistory } from "react-router-dom";
-import { projectFirestore } from "../../firebase/config";
-import { useEffect, useState, useRef } from "react";
+import { useLocation } from "react-router-dom";
+import { useTheme } from "../../hooks/useTheme";
 
-const Update = () => {
-  const { recipeID } = useParams();
-  const history = useHistory();
-  const ingredientInput = useRef(null);
+import { useFetch } from "../../hooks/useFetch";
+import { useCollection } from "../../hooks/useCollection";
+import RecipeList from "../../components/RecipeList";
 
-  const [recipe, setRecipe] = useState(null);
-  const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState(false);
-  const [newIngredient, setNewIngredient] = useState("");
+// styles:
+import "./Search.css";
 
-  // const [title, setTitle] = useState("");
-  // const [method, setMethod] = useState("");
-  // const [cookingTime, setCookingTime] = useState("");
-  // const [ingredients, setIngredients] = useState([]);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+export default function Search() {
+  const queryString = useLocation().search;
+  const queryParams = new URLSearchParams(queryString);
+  const query = queryParams.get("q");
+  const { mode } = useTheme();
 
-  useEffect(() => {
-    setIsPending(true);
-
-    projectFirestore
-      .collection("recipes")
-      .doc(recipeID)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          setIsPending(false);
-          setRecipe(doc.data());
-        } else {
-          setIsPending(false);
-          setError("Could not locate recipe.");
-        }
-      });
-  }, [recipeID]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitted(true);
-    // const doc = {
-    //   title,
-    //   ingredients,
-    //   method,
-    //   cookingTime: cookingTime + " minutes",
-    // };
-
-    projectFirestore.collection("recipes").doc(recipeID).update(recipe);
-
-    // try {
-    //   await projectFirestore.collection("recipes").add(doc);
-    //   history.push("/");
-    // } catch (err) {
-    //   console.log(err);
-    // }
-  };
-
-  const handleAdd = (e) => {
-    e.preventDefault();
-    const ing = newIngredient.trim();
-
-    if (ing && !recipe.ingredients.includes(ing)) {
-      projectFirestore
-        .collection("recipes")
-        .doc(recipeID)
-        .update({
-          ingredients: [...recipe.ingredients, ing],
-        });
-    }
-    setNewIngredient("");
-    ingredientInput.current.focus();
-  };
-
-  const handleRemove = (e) => {
-    // e.preventDefault();
-    // const ing = e.target.value;
-    // projectFirestore.collection("recipes").doc(recipeID).update({ingredients: FieldValue.arrayRemove(ing)})
-  };
+  const url = "http://localhost:3000/recipes?q=" + query;
+  const { error, isPending, data } = useFetch(url);
+  console.log(data);
 
   return (
-    <div>
-      {error && <p className="error"> {error}</p>}
-      {isPending && <div className="loading">Loading...</div>}
-      {recipe && !isPending && (
-        <div className="update">
-          <h2 className="page-title">Update</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="title-time">
-              <label>
-                <span>Recipe Title</span>
-                <input
-                  type="text"
-                  onChange={(e) => {
-                    setRecipe({ ...recipe, title: e.target.value });
-                  }}
-                  value={recipe.title}
-                  required
-                />
-              </label>
-
-              <label className="cooking-time">
-                <span>Time (minutes)</span>
-                <input
-                  type="number"
-                  onChange={(e) =>
-                    setRecipe({ ...recipe, cookingTime: e.target.value })
-                  }
-                  value={recipe.cookingTime}
-                  required
-                />
-              </label>
-            </div>
-
-            <div className="ingredient-container">
-              <label className="current-ing">
-                <span>Current Ingredients: </span>
-                <div className="current-ing-list">
-                  {recipe.ingredients.map((i) => (
-                    <button
-                      className="btn"
-                      key={i}
-                      value={i}
-                      onClick={handleRemove}
-                    >
-                      {i}
-                    </button>
-                  ))}
-                </div>
-              </label>
-
-              <label className="new-ing">
-                <span>Recipe Ingredients</span>
-                <input
-                  type="text"
-                  onChange={(e) => setNewIngredient(e.target.value)}
-                  value={newIngredient}
-                  ref={ingredientInput} // allows us to use this element.
-                />
-                <button className="btn add" onClick={handleAdd}>
-                  Add
-                </button>
-              </label>
-            </div>
-
-            <label>
-              <span>Recipe Method:</span>
-              <textarea
-                onChange={(e) =>
-                  setRecipe({ ...recipe, method: e.target.value })
-                }
-                value={recipe.method}
-                required
-              />
-            </label>
-
-            {isSubmitted ? (
-              <button className="btn add">Updating Recipe...</button>
-            ) : (
-              <button className="btn add">Submit</button>
-            )}
-          </form>
-        </div>
-      )}
+    <div className={`search-results ${mode}`}>
+      <h2 className={`page-title ${mode}`}>Recipes including "{query}"</h2>
+      {error && <p className="error">{error}</p>}
+      {isPending && <p className="loading">Loading...</p>}
+      {data && <RecipeList recipes={data} />}
     </div>
   );
-};
-
-export default Update;
+}

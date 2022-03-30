@@ -8,10 +8,10 @@ export default function Searchbar() {
   const history = useHistory();
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(e);
+    // e.preventDefault();
+    // console.log(term);
 
-    history.push(`/search?q=${term}`);
+    history.push(`/search/${term}`);
     e.target.reset();
   };
 
