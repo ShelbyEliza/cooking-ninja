@@ -3,6 +3,8 @@ import { useParams, useHistory } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { useFirestore } from "../../hooks/useFirestore";
 import { useDocument } from "../../hooks/useDocument";
+import Tags from "../../components/Tags";
+import Rating from "../../components/Rating";
 
 const Update = () => {
   const { id } = useParams();
@@ -12,6 +14,7 @@ const Update = () => {
   const { document, error } = useDocument("recipes", id);
 
   const [recipe, setRecipe] = useState(null);
+  const [tags, setTags] = useState([]);
   const [isPending, setIsPending] = useState(false);
   const [updateError, setUpdateError] = useState(false);
   const [newIngredient, setNewIngredient] = useState("");
@@ -22,11 +25,12 @@ const Update = () => {
     if (document) {
       setIsPending(false);
       setRecipe(document);
+      setTags(document.tags);
     } else {
       setUpdateError(error);
       setIsPending(false);
     }
-  }, [document, error, response.success, history]);
+  }, [document, error]);
 
   const handleAdd = async (e) => {
     e.preventDefault();
@@ -55,6 +59,38 @@ const Update = () => {
       ingredients: newIngredients,
     });
   };
+
+  // const handleTags = (e) => {
+  //   if (e.target.checked === true) {
+  //     setTags([...tags, e.target.value]);
+  //   } else {
+  //     let reducedTags = tags.filter((tag) => tag !== e.target.value);
+  //     setTags(reducedTags);
+  //   }
+  //   modifyRecipeTags();
+  // };
+
+  // const modifyRecipeTags = () => {
+  //   setRecipe({ ...recipe, tags: tags });
+  // };
+
+  // const handleRating = () => {};
+
+  const handleTags = (e) => {
+    // if (e.target.checked === true) {
+    //   setRecipe((prevRecipe) => {
+    //     prevRecipe.tags.push(e.target.value);
+    //   });
+    // } else {
+    //   let reducedTags = tags.filter((tag) => tag !== e.target.value);
+    //   setTags(reducedTags);
+    //   setRecipe({ ...recipe, tags: reducedTags });
+    // }
+  };
+
+  if (recipe) {
+    console.log(recipe);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -130,14 +166,9 @@ const Update = () => {
                     type="text"
                     onChange={(e) => setNewIngredient(e.target.value)}
                     value={newIngredient}
-                    ref={ingredientInput} // allows us to use this element.
+                    ref={ingredientInput}
                   />
-                  <button
-                    // type="button"
-                    id="new-ing"
-                    className="btn add"
-                    onClick={handleAdd}
-                  >
+                  <button id="new-ing" className="btn add" onClick={handleAdd}>
                     +
                   </button>
                 </div>
@@ -145,7 +176,7 @@ const Update = () => {
             </div>
 
             <div>
-              <label htmlFor="recipe-method">Recipe Method:</label>
+              <label htmlFor="recipe-method">Recipe Method</label>
               <textarea
                 id="recipe-method"
                 onChange={(e) =>
@@ -155,6 +186,18 @@ const Update = () => {
                 required
               />
             </div>
+
+            <div>
+              <label htmlFor="link">Link</label>
+              <input
+                id="link"
+                onChange={(e) => setRecipe({ ...recipe, link: e.target.value })}
+                value={recipe.link}
+              />
+            </div>
+
+            <Tags handleTags={handleTags} tags={recipe.tags} />
+            {/* <Rating handleRating={handleRating} rating={recipe.rating} /> */}
           </form>
 
           {isPending ? (

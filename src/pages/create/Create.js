@@ -1,18 +1,26 @@
 // styles:
 import "./Create.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { projectFirestore } from "../../firebase/config";
+import { useFirestore } from "../../hooks/useFirestore";
+import Rating from "../../components/Rating";
+import Tags from "../../components/Tags";
 
 export default function Create() {
+  const history = useHistory();
+  const { addDocument } = useFirestore("recipes");
+
+  const ingredientInput = useRef(null);
+
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [title, setTitle] = useState("");
   const [method, setMethod] = useState("");
   const [cookingTime, setCookingTime] = useState("");
   const [newIngredient, setNewIngredient] = useState("");
   const [ingredients, setIngredients] = useState([]);
-  const ingredientInput = useRef(null);
-  const history = useHistory();
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [tags, setTags] = useState([]);
+  const [rating, setRating] = useState("");
+  const [link, setLink] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,15 +30,19 @@ export default function Create() {
       ingredients,
       method,
       cookingTime,
+      tags,
+      rating,
+      link,
     };
 
-    try {
-      await projectFirestore.collection("recipes").add(doc);
-      history.push("/");
-    } catch (err) {
-      console.log(err);
-    }
+    addDocument(doc);
   };
+
+  useEffect(() => {
+    if (isSubmitted) {
+      history.push("/");
+    }
+  }, [isSubmitted, history]);
 
   const handleAdd = (e) => {
     e.preventDefault();
@@ -43,20 +55,47 @@ export default function Create() {
     ingredientInput.current.focus();
   };
 
+  const handleRating = (e) => {
+    // e.preventDefault();
+
+    setRating(e.target.value);
+  };
+
+  const handleTags = (e) => {
+    if (e.target.checked === true) {
+      setTags([...tags, e.target.value]);
+    } else {
+      let reducedTags = tags.filter((tag) => tag !== e.target.value);
+      setTags(reducedTags);
+    }
+  };
+  console.log(tags, tags.length);
+
   return (
     <div className="create">
       <h2 className="page-title">Add a New Recipe</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          <span>Recipe Title</span>
-          <input
-            type="text"
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
-            required
-          />
-        </label>
+        <div className="title-time">
+          <label>
+            <span>Recipe Title</span>
+            <input
+              type="text"
+              onChange={(e) => setTitle(e.target.value)}
+              value={title}
+              required
+            />
+          </label>
 
+          <label>
+            <span>Time (mins)</span>
+            <input
+              type="number"
+              onChange={(e) => setCookingTime(e.target.value)}
+              value={cookingTime}
+              required
+            />
+          </label>
+        </div>
         <label>
           <span>Recipe Ingredients</span>
           <div className="ingredients">
@@ -64,7 +103,7 @@ export default function Create() {
               type="text"
               onChange={(e) => setNewIngredient(e.target.value)}
               value={newIngredient}
-              ref={ingredientInput} // allows us to use this element.
+              ref={ingredientInput}
             />
             <button onClick={handleAdd} className="btn">
               Add
@@ -88,14 +127,19 @@ export default function Create() {
           />
         </label>
         <label>
-          <span>Cooking Time (minutes)</span>
+          <span>Link</span>
           <input
-            type="number"
-            onChange={(e) => setCookingTime(e.target.value)}
-            value={cookingTime}
-            required
+            type="text"
+            onChange={(e) => setLink(e.target.value)}
+            value={link}
           />
         </label>
+        <>
+          <Tags handleTags={handleTags} tags />
+        </>
+        <>
+          <Rating handleRating={handleRating} />
+        </>
         {isSubmitted ? (
           <button className="button">Adding Recipe...</button>
         ) : (

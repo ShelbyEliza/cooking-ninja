@@ -1,6 +1,6 @@
 .create {
-  max-width: 480px;
-  margin: 60px auto;
+  max-width: 600px;
+  margin: 40px auto;
   color: floralwhite;
 }
 .create h2 {
@@ -25,10 +25,60 @@
   text-decoration: none;
   margin: 20px auto;
 }
+
+.title-time {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  align-items: end;
+  gap: 40px;
+}
 .ingredients {
   display: flex;
   align-items: center;
 }
 .ingredients button {
   margin: 0 0 0 10px;
+}
+.rating-container {
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 20px;
+}
+.rating-option {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tag-container {
+  margin: 10px 0 0 0;
+}
+
+.tag-list {
+  padding: 10px 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+  font-size: 18px;
+  /* justify-content: space-between;
+  align-items: center; */
+}
+
+.tag-option {
+  /* padding: 20px; */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  /* border: 1px solid peru; */
+}
+.tag-option input {
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+}
+fieldset {
+  margin-top: 10px;
 }

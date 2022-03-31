@@ -16,6 +16,8 @@ export default function Search() {
     .map((word) => word.charAt(0).toUpperCase() + word.substring(1))
     .join(" ");
 
+  // ref = ref.where( "ingredients", "array-contains-any", [query, queryLower, queryUpper])
+  // ref = ref.where( "title", "array-contains-any", [query, queryLower, queryUpper]) - NOT IMPLEMENTED !
   const { documents } = useCollection("recipes", [
     "ingredients",
     "array-contains-any",
