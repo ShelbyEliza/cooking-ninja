@@ -3,5 +3,10 @@
   min-height: 100%;
 }
 .App.dark {
-  background: #39303d;
+  background: var(--serious-plum);
+}
+.App .side-by-side {
+  display: flex;
+  justify-content: space-around;
+  /* align-items: center; */
 }

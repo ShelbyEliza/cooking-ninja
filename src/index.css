@@ -2,10 +2,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Pacifico&display=swap");
 
 :root {
-  --light-bg: #c3bfc5;
-  --yellow-title-accent: #ffe0b1;
-  --purple-title-accent: #4a3257;
-  --peach-nav: #f1d6d2;
+  --serious-plum: #39303d;
+  --pale-plum: #594760;
+  --mustard: #dba85b;
+
+  --playful-plum: #69445b;
+
+  --nav-opt-1: #ffe0b1;
+  --nav-opt-2: pink;
+  --nav-opt-3: #f1d6d2;
 }
 
 /* base styles */
@@ -18,7 +23,7 @@ body {
   font-family: Raleway, sans-serif;
   margin: 0;
   font-size: 1.4em;
-  background: var(--light-bg);
+  background: var(--mustard);
   color: #333;
 }
 h1,

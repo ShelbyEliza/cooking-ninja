@@ -31,7 +31,7 @@ export default function Tags({ handleTags, tags }) {
       <div className="tag-list">
         {tagList.map((tag) => {
           let checked = false;
-          if (tags.length > 0 && tags.includes(tag)) {
+          if (tags && tags.length > 0 && tags.includes(tag)) {
             checked = true;
           }
           return (

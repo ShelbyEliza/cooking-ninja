@@ -1,6 +1,8 @@
 .home {
   max-width: 800px;
-
-  margin: 30px auto;
+  /* 
+  margin: 30px auto; */
   color: floralwhite;
+
+  border: 1px solid var(--mustard);
 }

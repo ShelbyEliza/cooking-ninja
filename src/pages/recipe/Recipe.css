@@ -2,7 +2,7 @@
   max-width: 800px;
   margin: 40px auto;
   text-align: center;
-  background: var(--peach-nav);
+  background: var(--nav-opt-3);
   padding: 40px;
   box-sizing: border-box;
 }
@@ -32,6 +32,21 @@
   text-align: left;
   line-height: 1.5em;
 }
+
+.recipe a {
+  color: #555;
+  text-decoration: none;
+  display: block;
+  background: #ffd493;
+  font-size: 0.9em;
+  text-align: center;
+  width: 120px;
+  padding: 8px;
+  border-radius: 4px;
+  margin: 20px auto 0;
+}
+
+/* Dark Mode: */
 .recipe.dark {
   background: #69445b;
   color: #e4e4e4;

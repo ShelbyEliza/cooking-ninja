@@ -56,8 +56,6 @@ export default function Create() {
   };
 
   const handleRating = (e) => {
-    // e.preventDefault();
-
     setRating(e.target.value);
   };
 
@@ -69,7 +67,6 @@ export default function Create() {
       setTags(reducedTags);
     }
   };
-  console.log(tags, tags.length);
 
   return (
     <div className="create">

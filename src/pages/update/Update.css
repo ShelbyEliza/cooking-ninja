@@ -25,7 +25,7 @@
 .update .btn {
   border: 0;
   border-radius: 4px;
-  background: var(--peach-nav);
+  background: var(--nav-opt-3);
   cursor: pointer;
   text-decoration: none;
   margin: 20px auto;
@@ -45,11 +45,11 @@
   padding: 6px;
   margin: 8px;
 
-  background: var(--peach-nav);
+  background: var(--nav-opt-3);
   color: #333;
   font-size: 0.7em;
 
-  border: 2px solid var(--peach-nav);
+  border: 2px solid var(--nav-opt-3);
   border-radius: 4px;
 
   cursor: pointer;

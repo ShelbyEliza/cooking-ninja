@@ -1,19 +1,24 @@
 .theme-selector {
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  max-width: 800px;
+
+  max-width: 96px;
   max-height: 20px;
-  margin: 20px auto;
+
+  margin-top: 0px;
+
+  border: 1px solid var(--mustard);
 }
 
 .theme-buttons div {
   display: inline-block;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   cursor: pointer;
-  margin-left: 15px;
-  border-radius: 50%;
+
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+
+  border: 2px solid var(--mustard);
 }
 .mode-toggle {
   margin-right: auto;

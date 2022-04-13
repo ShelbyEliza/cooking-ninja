@@ -13,10 +13,9 @@ const Update = () => {
   const { updateDocument, response } = useFirestore("recipes");
   const { document, error } = useDocument("recipes", id);
 
-  const [recipe, setRecipe] = useState(null);
-  const [tags, setTags] = useState([]);
   const [isPending, setIsPending] = useState(false);
   const [updateError, setUpdateError] = useState(false);
+  const [recipe, setRecipe] = useState(null);
   const [newIngredient, setNewIngredient] = useState("");
 
   useEffect(() => {
@@ -25,22 +24,24 @@ const Update = () => {
     if (document) {
       setIsPending(false);
       setRecipe(document);
-      setTags(document.tags);
-    } else {
+    }
+    if (error) {
       setUpdateError(error);
       setIsPending(false);
     }
   }, [document, error]);
+
+  if (recipe) {
+    console.log(recipe);
+  }
 
   const handleAdd = async (e) => {
     e.preventDefault();
     const ing = newIngredient.trim();
     console.log(newIngredient);
 
-    if (!document.ingredients.includes(ing) && !(ing === "")) {
-      await updateDocument(id, {
-        ingredients: [...document.ingredients, ing],
-      });
+    if (!recipe.ingredients.includes(ing) && !(ing === "")) {
+      setRecipe({ ...recipe, ingredients: [...recipe.ingredients, ing] });
     }
     setNewIngredient("");
     ingredientInput.current.focus();
@@ -53,56 +54,42 @@ const Update = () => {
     let newIngredients = "";
     const ing = i;
 
-    newIngredients = document.ingredients.filter((i) => i !== ing);
+    newIngredients = recipe.ingredients.filter((i) => i !== ing);
 
-    await updateDocument(id, {
-      ingredients: newIngredients,
-    });
+    setRecipe({ ...recipe, ingredients: newIngredients });
   };
 
-  // const handleTags = (e) => {
-  //   if (e.target.checked === true) {
-  //     setTags([...tags, e.target.value]);
-  //   } else {
-  //     let reducedTags = tags.filter((tag) => tag !== e.target.value);
-  //     setTags(reducedTags);
-  //   }
-  //   modifyRecipeTags();
-  // };
-
-  // const modifyRecipeTags = () => {
-  //   setRecipe({ ...recipe, tags: tags });
-  // };
-
-  // const handleRating = () => {};
+  const handleRating = (e) => {
+    setRecipe({ ...recipe, rating: e.target.value });
+    console.log(e.target.value);
+  };
 
   const handleTags = (e) => {
-    // if (e.target.checked === true) {
-    //   setRecipe((prevRecipe) => {
-    //     prevRecipe.tags.push(e.target.value);
-    //   });
-    // } else {
-    //   let reducedTags = tags.filter((tag) => tag !== e.target.value);
-    //   setTags(reducedTags);
-    //   setRecipe({ ...recipe, tags: reducedTags });
-    // }
+    if (e.target.checked === true) {
+      if (recipe.tags) {
+        setRecipe({ ...recipe, tags: [...recipe.tags, e.target.value] });
+      } else {
+        setRecipe({ ...recipe, tags: [e.target.value] });
+      }
+    } else {
+      let reducedTags = recipe.tags.filter((tag) => tag !== e.target.value);
+      setRecipe({ ...recipe, tags: reducedTags });
+    }
   };
-
-  if (recipe) {
-    console.log(recipe);
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsPending(true);
 
     await updateDocument(id, recipe);
+    setIsPending(false);
+  };
 
+  useEffect(() => {
     if (response.success) {
-      setIsPending(false);
       history.push("/");
     }
-  };
+  }, [response.success, history]);
 
   return (
     <div className="update">
@@ -197,7 +184,7 @@ const Update = () => {
             </div>
 
             <Tags handleTags={handleTags} tags={recipe.tags} />
-            {/* <Rating handleRating={handleRating} rating={recipe.rating} /> */}
+            <Rating handleRating={handleRating} defaultRating={recipe.rating} />
           </form>
 
           {isPending ? (

@@ -3,7 +3,8 @@ import "./ThemeSelector.css";
 import modeIcon from "../assets/mode-icon.svg";
 import { useTheme } from "../hooks/useTheme";
 
-const themeColors = ["#ffe0b1", "pink", "#f1d6d2"];
+// const themeColors = ["#ffe0b1", "pink", "#f1d6d2"];
+const themeColors = ["#39303d", "pink", "#f1d6d2"];
 
 export default function ThemeSelector() {
   const { changeMode, mode, changeColor } = useTheme();

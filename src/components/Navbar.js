@@ -22,7 +22,7 @@ export default function Navbar() {
           <Searchbar />
         </div>
         <Link to="/create" className="create-link">
-          Create Recipe
+          <p className="new-text">Create Recipe</p>
         </Link>
       </nav>
     </div>
