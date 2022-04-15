@@ -31,7 +31,7 @@
   text-decoration: none;
 }
 .navbar a.brand:hover {
-  color: var(--nav-opt-1);
+  color: var(--honey);
 }
 .navbar a:last-child {
   display: flex;

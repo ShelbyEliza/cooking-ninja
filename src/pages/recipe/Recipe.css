@@ -2,7 +2,7 @@
   max-width: 800px;
   margin: 8px auto;
   text-align: center;
-  background: var(--nav-opt-3);
+  background: var(--pale-yellow);
   padding: 40px;
   box-sizing: border-box;
   position: relative;
@@ -35,10 +35,10 @@
 }
 
 .recipe a {
-  color: #555;
+  color: var(--medium-text);
   text-decoration: none;
   display: block;
-  background: #ffd493;
+  background: var(--honey);
   font-size: 0.9em;
   text-align: center;
   width: 120px;

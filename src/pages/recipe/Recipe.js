@@ -21,6 +21,12 @@ export default function Recipe() {
   const [recipeError, setRecipeError] = useState(false);
 
   useEffect(() => {
+    if (response.success) {
+      history.push("/");
+    }
+  }, [response.success, history]);
+
+  useEffect(() => {
     setIsPending(true);
 
     if (document) {
@@ -34,14 +40,13 @@ export default function Recipe() {
   }, [document, error]);
 
   const handleDelete = (id) => {
+    setIsPending(true);
     deleteDocument(id);
-  };
 
-  useEffect(() => {
     if (response.success) {
       history.push("/");
     }
-  }, [response.success, history]);
+  };
 
   return (
     <div className={`recipe ${mode}`}>

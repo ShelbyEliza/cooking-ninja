@@ -6,8 +6,8 @@
   margin: auto;
 }
 .recipe-list .card {
-  background: var(--nav-opt-3);
-  color: #333;
+  background: var(--pale-yellow);
+  color: var(--dark-text);
   padding: 20px;
   border-radius: 4px;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.05);
@@ -18,26 +18,26 @@
   transform: rotate(3deg);
 }
 .recipe-list .card h3 {
-  color: #555;
+  color: var(--medium-text);
   margin-bottom: 6px;
   padding: 5px;
   text-align: center;
 }
 .recipe-list .card p {
-  color: #999;
+  color: var(--light-text);
   font-size: 0.9em;
 }
 .recipe-list .card div {
-  color: #555;
+  color: var(--medium-text);
   font-size: 0.7em;
   margin: 20px 0;
   line-height: 1.5em;
 }
 .recipe-list .card a {
-  color: #555;
+  color: var(--medium-text);
   text-decoration: none;
   display: block;
-  background: #ffd493;
+  background: var(--honey);
   font-size: 0.9em;
   text-align: center;
   width: 120px;
@@ -55,7 +55,7 @@
 
 /* dark mode */
 .recipe-list .card.dark {
-  background: #69445b;
+  background: var(--playful-plum);
 }
 .recipe-list .card.dark p,
 .recipe-list .card.dark h3,
