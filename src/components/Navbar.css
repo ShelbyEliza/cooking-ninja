@@ -1,7 +1,7 @@
 .navbar {
-  padding: 20px;
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
+  padding: 20px 80px;
+  border-bottom-left-radius: 80px;
+  border-bottom-right-radius: 80px;
   border-right: 8px double var(--mustard);
   border-left: 8px double var(--mustard);
 
@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 900px;
+  /* max-width: 900px; */
   margin: auto;
   color: var(--mustard);
 }
@@ -26,7 +26,7 @@
 .navbar a.brand {
   /* Big margin between items */
   font-family: "Cinzel", serif;
-  margin-right: auto;
+  /* margin-right: auto; */
   color: var(--mustard);
   text-decoration: none;
 }

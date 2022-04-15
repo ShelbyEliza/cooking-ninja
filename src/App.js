@@ -20,25 +20,27 @@ function App() {
     <div className={`App ${mode}`}>
       <BrowserRouter>
         <Navbar />
-        <div className="side-by-side">
-          <ThemeSelector />
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/create">
-              <Create />
-            </Route>
-            <Route path="/search/:query">
-              <Search />
-            </Route>
-            <Route path="/recipes/:id">
-              <Recipe />
-            </Route>
-            <Route path="/update/:id">
-              <Update />
-            </Route>
-          </Switch>
+        <div className="centering-app">
+          <div className="side-by-side">
+            <ThemeSelector />
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/create">
+                <Create />
+              </Route>
+              <Route path="/search/:query">
+                <Search />
+              </Route>
+              <Route path="/recipes/:id">
+                <Recipe />
+              </Route>
+              <Route path="/update/:id">
+                <Update />
+              </Route>
+            </Switch>
+          </div>
         </div>
       </BrowserRouter>
     </div>

@@ -1,8 +1,10 @@
 .home {
   max-width: 800px;
-  /* 
-  margin: 30px auto; */
+
   color: floralwhite;
 
-  border: 1px solid var(--mustard);
+  padding: 8px 40px;
+  border-top: none;
+
+  margin-right: 60px;
 }

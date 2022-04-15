@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useDocument } from "../../hooks/useDocument";
+import { useFirestore } from "../../hooks/useFirestore";
+import Trashcan from "../../assets/delete-icon.svg";
 import { useTheme } from "../../hooks/useTheme";
 import { Link } from "react-router-dom";
 
@@ -11,6 +13,8 @@ export default function Recipe() {
   const { id } = useParams();
   const { mode } = useTheme();
   const { document, error } = useDocument("recipes", id);
+  const { deleteDocument, response } = useFirestore("recipes");
+  const history = useHistory();
 
   const [recipe, setRecipe] = useState(null);
   const [isPending, setIsPending] = useState(false);
@@ -29,12 +33,28 @@ export default function Recipe() {
     }
   }, [document, error]);
 
+  const handleDelete = (id) => {
+    deleteDocument(id);
+  };
+
+  useEffect(() => {
+    if (response.success) {
+      history.push("/");
+    }
+  }, [response.success, history]);
+
   return (
     <div className={`recipe ${mode}`}>
       {recipeError && <p className="error"> {recipeError}</p>}
       {isPending && <div className="loading">Loading...</div>}
       {recipe && (
         <>
+          <img
+            className="delete"
+            src={Trashcan}
+            alt="A trashcan, which deletes this recipe."
+            onClick={() => handleDelete(id)}
+          />
           <h2 className="page-title">{recipe.title}</h2>
           <p>{recipe.cookingTime} minutes to make</p>
           <ul>
