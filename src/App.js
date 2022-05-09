@@ -1,4 +1,4 @@
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // page components:
 import Navbar from "./components/Navbar";
@@ -23,23 +23,13 @@ function App() {
         <div className="centering-app">
           <div className="side-by-side">
             <ThemeSelector />
-            <Switch>
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Route path="/create">
-                <Create />
-              </Route>
-              <Route path="/search/:query">
-                <Search />
-              </Route>
-              <Route path="/recipes/:id">
-                <Recipe />
-              </Route>
-              <Route path="/update/:id">
-                <Update />
-              </Route>
-            </Switch>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/create" element={<Create />} />
+              <Route path="/search/:query" element={<Search />} />
+              <Route path="/recipes/:id" element={<Recipe />} />
+              <Route path="/update/:id" element={<Update />} />
+            </Routes>
           </div>
         </div>
       </BrowserRouter>

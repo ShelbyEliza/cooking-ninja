@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
+
+// hooks:
 import { useDocument } from "../../hooks/useDocument";
 import { useFirestore } from "../../hooks/useFirestore";
-import Trashcan from "../../assets/delete-icon.svg";
 import { useTheme } from "../../hooks/useTheme";
-import { Link } from "react-router-dom";
 
-// styles:
+// styles & assets:
 import "./Recipe.css";
+import Trashcan from "../../assets/delete-icon.svg";
 
 export default function Recipe() {
   const { id } = useParams();
   const { mode } = useTheme();
   const { document, error } = useDocument("recipes", id);
   const { deleteDocument, response } = useFirestore("recipes");
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [recipe, setRecipe] = useState(null);
   const [isPending, setIsPending] = useState(false);
@@ -22,9 +23,9 @@ export default function Recipe() {
 
   useEffect(() => {
     if (response.success) {
-      history.push("/");
+      navigate("/");
     }
-  }, [response.success, history]);
+  }, [response.success, navigate]);
 
   useEffect(() => {
     setIsPending(true);
@@ -40,19 +41,15 @@ export default function Recipe() {
   }, [document, error]);
 
   const handleDelete = (id) => {
-    setIsPending(true);
     deleteDocument(id);
-
-    if (response.success) {
-      history.push("/");
-    }
+    setIsPending(true);
   };
 
   return (
     <div className={`recipe ${mode}`}>
       {recipeError && <p className="error"> {recipeError}</p>}
       {isPending && <div className="loading">Loading...</div>}
-      {recipe && (
+      {recipe && !isPending && (
         <>
           <img
             className="delete"

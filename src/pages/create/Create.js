@@ -1,13 +1,13 @@
 // styles:
 import "./Create.css";
 import { useState, useRef, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useFirestore } from "../../hooks/useFirestore";
 import Rating from "../../components/Rating";
 import Tags from "../../components/Tags";
 
 export default function Create() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { addDocument } = useFirestore("recipes");
 
   const ingredientInput = useRef(null);
@@ -40,9 +40,9 @@ export default function Create() {
 
   useEffect(() => {
     if (isSubmitted) {
-      history.push("/");
+      navigate("/");
     }
-  }, [isSubmitted, history]);
+  }, [isSubmitted, navigate]);
 
   const handleAdd = (e) => {
     e.preventDefault();

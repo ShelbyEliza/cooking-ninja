@@ -1,14 +1,18 @@
-import "./Update.css";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
+
+// hooks & components:
 import { useFirestore } from "../../hooks/useFirestore";
 import { useDocument } from "../../hooks/useDocument";
 import Tags from "../../components/Tags";
 import Rating from "../../components/Rating";
 
+// styles:
+import "./Update.css";
+
 const Update = () => {
   const { id } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const ingredientInput = useRef(null);
   const { updateDocument, response } = useFirestore("recipes");
   const { document, error } = useDocument("recipes", id);
@@ -87,9 +91,9 @@ const Update = () => {
 
   useEffect(() => {
     if (response.success) {
-      history.push("/");
+      navigate("/");
     }
-  }, [response.success, history]);
+  }, [response.success, navigate]);
 
   return (
     <div className="update">

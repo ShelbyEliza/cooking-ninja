@@ -1,7 +1,10 @@
-// styles:
-import "./Search.css";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+
+// styles:
+import "./Search.css";
+
+// hooks & components:
 import { useTheme } from "../../hooks/useTheme";
 import { useCollection } from "../../hooks/useCollection";
 import RecipeList from "../../components/RecipeList";
