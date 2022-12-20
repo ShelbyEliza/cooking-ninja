@@ -11,7 +11,10 @@ import RecipeList from "../../components/RecipeList";
 
 export default function Search() {
   const [recipes, setRecipes] = useState([]);
+
   const { mode } = useTheme();
+  const { documents: allDocuments } = useCollection("recipes");
+
   const { query } = useParams();
   const queryLower = query.toLowerCase();
   const queryUpper = queryLower
@@ -19,19 +22,29 @@ export default function Search() {
     .map((word) => word.charAt(0).toUpperCase() + word.substring(1))
     .join(" ");
 
-  // ref = ref.where( "ingredients", "array-contains-any", [query, queryLower, queryUpper])
-  // ref = ref.where( "title", "array-contains-any", [query, queryLower, queryUpper]) - NOT IMPLEMENTED !
-  const { documents } = useCollection("recipes", [
-    "ingredients",
-    "array-contains-any",
-    [query, queryLower, queryUpper],
-  ]);
-
   useEffect(() => {
-    if (documents) {
-      setRecipes(documents);
+    let results = [];
+    const queryTerms = [query, queryLower, queryUpper];
+    if (allDocuments) {
+      allDocuments.forEach((doc) => {
+        if (queryTerms.includes(doc.title)) {
+          results.push(doc);
+        } else {
+          doc.ingredients.forEach((ing) => {
+            if (
+              ing.includes(queryTerms[0]) ||
+              ing.includes(queryTerms[1]) ||
+              ing.includes(queryTerms[2])
+            ) {
+              results.push(doc);
+            }
+          });
+        }
+      });
     }
-  }, [documents]);
+    setRecipes(results);
+    console.log(results);
+  }, [allDocuments, query, queryLower, queryUpper]);
 
   return (
     <div className={`search-results ${mode}`}>
@@ -39,7 +52,7 @@ export default function Search() {
       {query && (
         <h2 className={`page-title ${mode}`}>Recipes including "{query}"</h2>
       )}
-      {documents && <RecipeList recipes={recipes} />}
+      {recipes && <RecipeList recipes={recipes} />}
     </div>
   );
 }
