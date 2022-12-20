@@ -35,14 +35,14 @@ const Update = () => {
     }
   }, [document, error]);
 
-  if (recipe) {
-    console.log(recipe);
-  }
+  // if (recipe) {
+  //   console.log(recipe);
+  // }
 
   const handleAdd = async (e) => {
     e.preventDefault();
     const ing = newIngredient.trim();
-    console.log(newIngredient);
+    // console.log(newIngredient);
 
     if (!recipe.ingredients.includes(ing) && !(ing === "")) {
       setRecipe({ ...recipe, ingredients: [...recipe.ingredients, ing] });
@@ -53,7 +53,7 @@ const Update = () => {
 
   const handleRemove = async (e, i) => {
     e.preventDefault();
-    console.log(i);
+    // console.log(i);
 
     let newIngredients = "";
     const ing = i;
@@ -65,7 +65,7 @@ const Update = () => {
 
   const handleRating = (e) => {
     setRecipe({ ...recipe, rating: e.target.value });
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
 
   const handleTags = (e) => {

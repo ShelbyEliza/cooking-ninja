@@ -1,1 +1,167 @@
 Commented out a bit of excessive logging in node_modules/webpack/hot/log.js
+
+
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
+// styles:
+import "./Search.css";
+
+// hooks & components:
+import { useTheme } from "../../hooks/useTheme";
+import { useCollection } from "../../hooks/useCollection";
+import RecipeList from "../../components/RecipeList";
+
+export default function Search() {
+  const { mode } = useTheme();
+  const { query } = useParams();
+  const queryLower = query.toLowerCase();
+  const queryUpper = queryLower
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.substring(1))
+    .join(" ");
+
+  const [recipes, setRecipes] = useState([]);
+  const [ingredientResults, setIngredientResults] = useState([]);
+  const [titleResults, setTitleResults] = useState([]);
+  const [ingExists, setIngExists] = useState(false);
+  const [titleExists, setTitleExists] = useState(false);
+
+  // ref = ref.where( "ingredients", "array-contains-any", [query, queryLower, queryUpper])
+  // ref = ref.where( "title", "array-contains-any", [query, queryLower, queryUpper]) - NOT IMPLEMENTED !
+  const queryIngredients = [
+    "ingredients",
+    "array-contains-any",
+    [query, queryLower, queryUpper],
+  ];
+  const queryTitle = ["title", "in", [query, queryLower, queryUpper]];
+  const { documents: ingredientDocs } = useCollection(
+    "recipes",
+    queryIngredients
+    );
+  const { documents: titleDocs } = useCollection("recipes", queryTitle);
+  const { documents: allDocuments } = useCollection("recipes")
+  
+  // const { documents } = useCollection("recipes", [
+  //     "ingredients",
+  //     "array-contains-any",
+  //     [query, queryLower, queryUpper],
+  //   ],);
+
+
+    // useEffect(() => {
+    //   if (ingredientDocs) {
+    //     let results = ingredientDocs.filter((doc) => doc.title !== "Bread");
+    //     console.log(results);
+    //   }
+    // }, [ingredientDocs]);
+
+  // useEffect(() => {
+  //   if (ingredientDocs) {
+  //     setIngExists(true);
+  //     console.log(ingredientDocs);
+  //     setIngredientResults(ingredientDocs);
+  //   }
+  // }, [ingredientDocs]);
+
+  // useEffect(() => {
+  //   if (titleDocs) {
+  //     setTitleExists(true);
+  //     console.log(titleDocs);
+  //     setTitleResults(titleDocs);
+  //   }
+  // }, [titleDocs]);
+
+
+  useEffect(() => {
+    if (ingExists === true && titleExists === true) {
+      if (ingredientResults.length > 0 && titleResults > 0) {
+        let results = [ingredientResults, titleResults];
+        console.log(results);
+        setRecipes([results]);
+      } else if (ingredientResults.length > 0 && titleResults <= 0) {
+        setRecipes([...ingredientResults]);
+      } else if (ingredientResults.length <= 0 && titleResults > 0) {
+        setRecipes([...titleResults]);
+      }
+    }
+  }, [ingredientResults, titleResults, ingExists, titleExists]);
+
+  // useEffect(() => {
+  //   if (documents) {
+  //     setRecipes(documents);
+  //   }
+  // }, [documents]);
+  console.log(recipes);
+  return (
+    <div className={`search-results ${mode}`}>
+      <h2 className={`page-title ${mode}`}>Search Page</h2>
+      {query && (
+        <h2 className={`page-title ${mode}`}>Recipes including "{query}"</h2>
+      )}
+      {titleExists !== false && ingExists !== false && (
+        <RecipeList recipes={recipes} />
+      )}
+      {/* {recipes && <RecipeList recipes={recipes} />} */}
+    </div>
+  );
+}
+
+
+---------------------------
+
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
+// styles:
+import "./Search.css";
+
+// hooks & components:
+import { useTheme } from "../../hooks/useTheme";
+import { useCollection } from "../../hooks/useCollection";
+import RecipeList from "../../components/RecipeList";
+
+export default function Search() {
+  const [recipes, setRecipes] = useState([]);
+
+  const { mode } = useTheme();
+  const { documents: allDocuments } = useCollection("recipes");
+
+  // TODO: first, upper case query, then search for uppercase
+  const { query } = useParams();
+  const queryLower = query.toLowerCase();
+  const queryUpper = queryLower
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.substring(1))
+    .join(" ");
+
+  useEffect(() => {
+    let results = [];
+    const queryTerms = [query, queryLower, queryUpper];
+    if (allDocuments) {
+      allDocuments.forEach((doc) => {
+        if (queryTerms.includes(doc.title)) {
+          results.push(doc);
+        } else if (doc.ingredients.includes(queryTerms[0])) {
+          results.push(doc);
+        } else if (doc.ingredients.includes(queryTerms[1])) {
+          results.push(doc);
+        } else if (doc.ingredients.includes(queryTerms[2])) {
+          results.push(doc);
+        }
+      });
+    }
+    setRecipes(results);
+    console.log(results);
+  }, [allDocuments, query, queryLower, queryUpper]);
+
+  return (
+    <div className={`search-results ${mode}`}>
+      <h2 className={`page-title ${mode}`}>Search Page</h2>
+      {query && (
+        <h2 className={`page-title ${mode}`}>Recipes including "{query}"</h2>
+      )}
+      {recipes && <RecipeList recipes={recipes} />}
+    </div>
+  );
+}
