@@ -16,10 +16,9 @@
 
   border-radius: 50% / 25%;
 
-  border: 2px solid var(--mustard);
+  border: 2px solid var(--carbon);
 }
 .mode-toggle {
-  margin-right: auto;
   align-items: center;
 }
 .mode-toggle img {

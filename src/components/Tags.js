@@ -1,3 +1,4 @@
+import { useTheme } from "../hooks/useTheme";
 const tagList = [
   "Comfort",
   "American",
@@ -10,7 +11,7 @@ const tagList = [
   "Drinks",
   "Holiday",
   "Sides",
-  "Vegetebles",
+  "Vegetables",
   "Fruity",
   "Asian",
   "Middle-Eastern",
@@ -23,10 +24,10 @@ const tagList = [
   "Winter",
   "Fried",
 ];
-
 export default function Tags({ handleTags, tags }) {
+  const { mode, color } = useTheme();
   return (
-    <fieldset className="tag-container">
+    <fieldset className={`tag-container tag-${mode}-${color.name}`}>
       <legend>Tags</legend>
       <div className="tag-list">
         {tagList.map((tag) => {

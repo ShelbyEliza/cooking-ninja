@@ -1,17 +1,19 @@
+// styles:
+import "./Update.css";
+
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 
 // hooks & components:
 import { useFirestore } from "../../hooks/useFirestore";
 import { useDocument } from "../../hooks/useDocument";
+import { useTheme } from "../../hooks/useTheme";
 import Tags from "../../components/Tags";
 import Rating from "../../components/Rating";
 
-// styles:
-import "./Update.css";
-
 const Update = () => {
   const { id } = useParams();
+  const { mode, color } = useTheme();
   const navigate = useNavigate();
   const ingredientInput = useRef(null);
   const { updateDocument, response } = useFirestore("recipes");
@@ -35,14 +37,9 @@ const Update = () => {
     }
   }, [document, error]);
 
-  // if (recipe) {
-  //   console.log(recipe);
-  // }
-
   const handleAdd = async (e) => {
     e.preventDefault();
     const ing = newIngredient.trim();
-    // console.log(newIngredient);
 
     if (!recipe.ingredients.includes(ing) && !(ing === "")) {
       setRecipe({ ...recipe, ingredients: [...recipe.ingredients, ing] });
@@ -53,7 +50,6 @@ const Update = () => {
 
   const handleRemove = async (e, i) => {
     e.preventDefault();
-    // console.log(i);
 
     let newIngredients = "";
     const ing = i;
@@ -63,9 +59,8 @@ const Update = () => {
     setRecipe({ ...recipe, ingredients: newIngredients });
   };
 
-  const handleRating = (e) => {
-    setRecipe({ ...recipe, rating: e.target.value });
-    // console.log(e.target.value);
+  const handleRating = (selectedRating) => {
+    setRecipe({ ...recipe, rating: selectedRating });
   };
 
   const handleTags = (e) => {
@@ -96,7 +91,7 @@ const Update = () => {
   }, [response.success, navigate]);
 
   return (
-    <div className="update">
+    <div className={`update card-${mode}-${color.name}`}>
       {updateError && <p className="error"> {updateError}</p>}
       {isPending && <div className="loading">Loading...</div>}
       {recipe && !isPending && (
@@ -192,11 +187,15 @@ const Update = () => {
           </form>
 
           {isPending ? (
-            <button className="btn" disabled>
+            <button className="btn update-btn" disabled>
               Updating Recipe...
             </button>
           ) : (
-            <button onClick={handleSubmit} className="btn" form="update-form">
+            <button
+              onClick={handleSubmit}
+              className="btn update-btn"
+              form="update-form"
+            >
               Submit
             </button>
           )}

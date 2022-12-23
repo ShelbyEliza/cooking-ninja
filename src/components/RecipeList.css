@@ -6,38 +6,44 @@
   margin: auto;
 }
 .recipe-list .card {
-  background: var(--pale-yellow);
-  color: var(--dark-text);
+  position: relative;
   padding: 20px;
+
   border-radius: 4px;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.05);
+
   transition: all 0.3s ease;
-  position: relative;
+  max-height: max-content;
 }
 .recipe-list .card:hover {
   transform: rotate(3deg);
 }
-.recipe-list .card h3 {
-  color: var(--medium-text);
+.card-title {
+  font-family: "Cinzel", serif;
   margin-bottom: 6px;
   padding: 5px;
   text-align: center;
+  height: 30%;
+  align-items: center;
+  border-bottom: 0.2rem dotted var(--inca-gold);
+
+  overflow-wrap: break-word;
 }
-.recipe-list .card p {
-  color: var(--light-text);
+.card-method {
   font-size: 0.9em;
+  text-align: center;
 }
-.recipe-list .card div {
-  color: var(--medium-text);
-  font-size: 0.7em;
-  margin: 20px 0;
+.card-time {
+  font-size: 1rem;
+  margin: 20px 10px;
   line-height: 1.5em;
+  text-align: right;
 }
-.recipe-list .card a {
-  color: var(--medium-text);
+.card-link {
+  color: var(--noodles);
   text-decoration: none;
   display: block;
-  background: var(--honey);
+  background: var(--inca-gold);
   font-size: 0.9em;
   text-align: center;
   width: 120px;
@@ -51,14 +57,4 @@
   right: 10px;
   cursor: pointer;
   filter: invert(60%);
-}
-
-/* dark mode */
-.recipe-list .card.dark {
-  background: var(--playful-plum);
-}
-.recipe-list .card.dark p,
-.recipe-list .card.dark h3,
-.recipe-list .card.dark div {
-  color: #e4e4e4;
 }

@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// styles:
-import "./Searchbar.css";
 
 export default function Searchbar() {
   const [term, setTerm] = useState("");
@@ -9,7 +7,6 @@ export default function Searchbar() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(term);
 
     navigate("/search/" + term);
     e.target.reset();

@@ -1,11 +1,8 @@
-import { projectFirestore } from "../../firebase/config";
+import { projectFirestore } from "../firebase/config";
 import { useEffect, useState } from "react";
 
-// styles:
-import "./Home.css";
-
 // components:
-import RecipeList from "../../components/RecipeList";
+import RecipeList from "../components/RecipeList";
 
 export default function Home() {
   const [data, setData] = useState(null);
@@ -19,7 +16,7 @@ export default function Home() {
     // async - fetches a snapshot of data initially.
     // realtime collection data fires function whenever data in function changes.
     // don't use catch for errors, use onSnapshot's second argument.
-    // needs a clean up function to upsubscibe from this listener
+    // needs a clean up function to unsubscribe from this listener
     // for example, when page is directed away from.
     // once component unmounts unsub returns and stops listening.
     const unsub = projectFirestore.collection("recipes").onSnapshot(

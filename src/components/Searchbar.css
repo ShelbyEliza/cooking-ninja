@@ -1,8 +1,0 @@
-.searchbar .search-field {
-  outline: thin solid rgb(85, 85, 85);
-  font-size: 0.8em;
-  padding: 8px;
-}
-.searchbar .search-field:focus {
-  outline: 2px solid rgb(124, 124, 124);
-}

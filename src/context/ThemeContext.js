@@ -15,7 +15,11 @@ const themeReducer = (state, action) => {
 
 export function ThemeProvider({ children }) {
   const [state, dispatch] = useReducer(themeReducer, {
-    color: "#39303d",
+    color: {
+      id: "#152429",
+      name: "black-pearl",
+      default: true,
+    },
     mode: "dark",
   });
 

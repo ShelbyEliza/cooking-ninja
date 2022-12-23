@@ -1,60 +1,102 @@
-.navbar {
-  padding: 20px 80px;
-  border-bottom-left-radius: 80px;
-  border-bottom-right-radius: 80px;
-  border-right: 8px double var(--mustard);
-  border-left: 8px double var(--mustard);
-
-  border-top: 4px solid var(--mustard);
-  border-bottom: 1px solid var(--mustard);
-}
-.navbar nav {
+nav {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+
+  padding-bottom: 1rem;
+}
+
+.nav-top-container {
+  display: flex;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+
+  flex-direction: row;
   justify-content: space-between;
-  /* max-width: 900px; */
-  margin: auto;
-  color: var(--mustard);
-}
-.navbar .subtitle {
-  font-size: 0.8em;
-  padding-left: 20px;
-}
-.navbar .search-field {
-  margin: auto;
-}
-.navbar a.brand {
-  /* Big margin between items */
-  font-family: "Cinzel", serif;
-  /* margin-right: auto; */
-  color: var(--mustard);
-  text-decoration: none;
-}
-.navbar a.brand:hover {
-  color: var(--honey);
-}
-.navbar a:last-child {
-  display: flex;
   align-items: center;
-  padding: 10px;
+}
+.site-title-container {
+  margin-left: 3rem;
+  padding: 0.4rem 1rem;
+  outline-style: dotted;
+}
 
-  font-family: "Pacifico", cursive;
-  color: var(--mustard);
+.site-title {
+  color: var(--inca-gold);
+}
 
+.subtitle {
+  display: flex;
+  width: fit-content;
+  padding: 0.2rem;
+
+  margin-left: auto;
+
+  color: var(--inca-gold);
+  font-size: 0.8em;
+}
+
+/* --------- create ------------ */
+.create-link {
+  display: flex;
+  margin-right: 3rem;
+  padding: 0.8rem;
+
+  color: var(--inca-gold);
+
+  border: 2px solid var(--inca-gold);
+}
+.create-text {
   line-height: 1.2;
-  white-space: nowrap;
-  text-decoration: none;
-
-  border: 2px solid var(--mustard);
-
-  border-radius: 20%;
-}
-.navbar a:last-child:hover {
-  background: var(--mustard);
-  color: #3d3426;
-  border: 2px solid var(--mustard);
 }
 
-.navbar .create-link:hover {
-  text-decoration: none;
+.create-link:hover {
+  box-shadow: 0 0 0.4rem var(--inca-gold);
+}
+
+/* --------- bottom-container ------------ */
+.nav-bottom-container {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 0.3rem 2rem;
+  align-items: center;
+
+  box-shadow: 0 1rem 2rem var(--mustard-trans);
+
+  background: var(--inca-gold);
+}
+
+/* --------- search ------------ */
+.search-field {
+  align-self: flex-end;
+
+  border: none;
+  border-radius: 0%;
+
+  width: 14rem;
+  height: 2rem;
+
+  outline: thin solid var(--black-pearl);
+  font-size: 1.1rem;
+  padding: 8px;
+}
+
+.search-field:focus {
+  outline: 0.2rem solid var(--black-pearl);
+}
+
+/* --------------------- black-pearl ------------------ */
+.nav-black-pearl .nav-top-container {
+  background: var(--black-pearl);
+}
+.nav-black-pearl .site-title:hover {
+  color: var(--noodles);
+}
+
+/* --------------------- noodles --------------------- */
+.nav-noodles .nav-top-container {
+  background: var(--noodles);
+}
+.nav-noodles .site-title:hover {
+  color: var(--carbon);
 }

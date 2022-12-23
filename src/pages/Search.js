@@ -1,13 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-// styles:
-import "./Search.css";
-
 // hooks & components:
-import { useTheme } from "../../hooks/useTheme";
-import { useCollection } from "../../hooks/useCollection";
-import RecipeList from "../../components/RecipeList";
+import { useTheme } from "../hooks/useTheme";
+import { useCollection } from "../hooks/useCollection";
+import RecipeList from "../components/RecipeList";
 
 export default function Search() {
   const [recipes, setRecipes] = useState([]);
@@ -47,10 +44,10 @@ export default function Search() {
   }, [allDocuments, query, queryLower, queryUpper]);
 
   return (
-    <div className={`search-results ${mode}`}>
+    <div className="search-results">
       <h2 className={`page-title ${mode}`}>Search Page</h2>
       {query && (
-        <h2 className={`page-title ${mode}`}>Recipes including "{query}"</h2>
+        <h3 className={`page-title ${mode}`}>Recipes including "{query}"</h3>
       )}
       {recipes && <RecipeList recipes={recipes} />}
     </div>

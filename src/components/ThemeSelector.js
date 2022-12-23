@@ -3,8 +3,18 @@ import "./ThemeSelector.css";
 import modeIcon from "../assets/mode-icon.svg";
 import { useTheme } from "../hooks/useTheme";
 
-// const themeColors = ["#ffe0b1", "pink", "#f1d6d2"];
-const themeColors = ["#39303d", "#69445b", "rgb(109, 46, 57)"];
+const themeColors = [
+  {
+    id: "#ffe0b1",
+    name: "noodles",
+    default: false,
+  },
+  {
+    id: "#152429",
+    name: "black-pearl",
+    default: false,
+  },
+];
 
 export default function ThemeSelector() {
   const { changeMode, mode, changeColor } = useTheme();
@@ -26,9 +36,9 @@ export default function ThemeSelector() {
       <div className="theme-buttons">
         {themeColors.map((color) => (
           <div
-            key={color}
+            key={color.name}
             onClick={() => changeColor(color)}
-            style={{ background: color }}
+            style={{ background: color.id }}
           />
         ))}
       </div>
