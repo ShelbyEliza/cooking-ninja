@@ -2,22 +2,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Pacifico&display=swap");
 
 :root {
-  --serious-plum: #39303d;
-  --mustard: #dba85b;
-
-  /* Cards */
-  --playful-plum: #69445b;
-  --pale-yellow: #ffe0b1;
-
+  --inca-gold: #c08224;
+  --mustard-trans: #dba85b3f;
+  --biscuit: #feeacb;
+  --noodles: #ffe0b1;
+  --black-pearl: #152429;
+  --carbon: #333333ff;
   --pink-cherry: rgb(109, 46, 57);
-
-  --honey: #ffd493;
-  --pale-plum: #594760;
-
-  /* Text */
-  --dark-text: #333;
-  --medium-text: #555;
-  --light-text: #999;
 }
 
 /* base styles */
@@ -30,8 +21,8 @@ body {
   font-family: Raleway, sans-serif;
   margin: 0;
   font-size: 1.4em;
-  background: var(--mustard);
-  color: var(--dark-text);
+
+  color: var(--carbon);
 }
 h1,
 h2,
@@ -41,7 +32,7 @@ p {
 }
 input,
 textarea {
-  color: var(--dark-text);
+  color: var(--carbon);
   padding: 6px;
   font-size: 0.8em;
   border-radius: 4px;
@@ -51,13 +42,99 @@ textarea {
   width: 100%;
   box-sizing: border-box;
 }
+a {
+  text-decoration: none;
+}
+legend {
+  font-size: 1.4rem;
+}
+fieldset {
+  margin-top: 1rem;
+  border: 0.2rem solid var(--inca-gold);
+}
+
+.site-title {
+  font-family: "Cinzel", serif;
+}
 .page-title {
   text-align: center;
   margin: 40px auto;
-  color: var(--dark-text);
+  font-family: "Cinzel", serif;
+  /* color: var(--carbon); */
 }
 .loading,
 .error {
   text-align: center;
   margin: 40px auto;
+}
+
+/* home */
+.home {
+  max-width: 800px;
+
+  padding: 8px 40px;
+  margin-top: 2rem;
+}
+
+/* search results */
+.search-results.dark,
+.page-title.dark {
+  color: floralwhite;
+}
+/* black-pearl */
+.card-dark-black-pearl,
+.card-light-black-pearl {
+  background: var(--black-pearl);
+}
+.card-dark-black-pearl h3,
+.card-dark-black-pearl div,
+.card-light-black-pearl h3,
+.card-light-black-pearl div,
+.card-light-black-pearl span,
+.card-dark-black-pearl span {
+  color: var(--noodles);
+}
+.card-dark-black-pearl p,
+.card-light-black-pearl p {
+  color: var(--biscuit);
+}
+
+/* noodles */
+.card-dark-noodles,
+.card-light-noodles {
+  background: var(--noodles);
+}
+
+.card-dark-noodles h3,
+.card-dark-noodles div,
+.card-light-noodles h3,
+.card-light-noodles div,
+.card-light-noodles span,
+.card-dark-noodles span {
+  color: var(--black-pearl);
+}
+.card-dark-noodles p,
+.card-light-noodles p {
+  color: var(--carbon);
+}
+
+/* recipe */
+/* black-pearl */
+.recipe-dark-black-pearl,
+.recipe-light-black-pearl {
+  color: var(--noodles);
+}
+.recipe-dark-black-pearl,
+.recipe-light-black-pearl {
+  background: var(--black-pearl);
+}
+
+/* noodles */
+.recipe-dark-noodles,
+.recipe-light-noodles {
+  color: var(--carbon);
+}
+.recipe-dark-noodles,
+.recipe-light-noodles {
+  background: var(--noodles);
 }

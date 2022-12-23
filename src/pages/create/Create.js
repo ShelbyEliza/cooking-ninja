@@ -1,13 +1,16 @@
 // styles:
 import "./Create.css";
+
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFirestore } from "../../hooks/useFirestore";
+import { useTheme } from "../../hooks/useTheme";
 import Rating from "../../components/Rating";
 import Tags from "../../components/Tags";
 
 export default function Create() {
   const navigate = useNavigate();
+  const { mode, color } = useTheme();
   const { addDocument } = useFirestore("recipes");
 
   const ingredientInput = useRef(null);
@@ -24,6 +27,7 @@ export default function Create() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(ingredients);
     setIsSubmitted(true);
     const doc = {
       title,
@@ -55,8 +59,16 @@ export default function Create() {
     ingredientInput.current.focus();
   };
 
-  const handleRating = (e) => {
-    setRating(e.target.value);
+  const removeAddedIng = (e) => {
+    e.preventDefault();
+    let ing = e.target.outerText;
+    let ingTrimmed = ing.replace(",", "");
+    let reducedIngredients = ingredients.filter((ing) => ing !== ingTrimmed);
+
+    setIngredients(reducedIngredients);
+  };
+  const handleRating = (selectedRating) => {
+    setRating(selectedRating);
   };
 
   const handleTags = (e) => {
@@ -69,9 +81,9 @@ export default function Create() {
   };
 
   return (
-    <div className="create">
-      <h2 className="page-title">Add a New Recipe</h2>
-      <form onSubmit={handleSubmit}>
+    <div className={`create card-${mode}-${color.name}`}>
+      <h3 className="page-title">Add a New Recipe</h3>
+      <form onSubmit={handleSubmit} autoComplete="off">
         <div className="title-time">
           <label>
             <span>Recipe Title</span>
@@ -111,7 +123,9 @@ export default function Create() {
         <p>
           Current Ingredients:{" "}
           {ingredients.map((i) => (
-            <em key={i}>{i}, </em>
+            <em key={i} onClick={(e) => removeAddedIng(e)}>
+              {i},{" "}
+            </em>
           ))}
         </p>
 

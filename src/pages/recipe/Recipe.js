@@ -12,7 +12,7 @@ import Trashcan from "../../assets/delete-icon.svg";
 
 export default function Recipe() {
   const { id } = useParams();
-  const { mode } = useTheme();
+  const { mode, color } = useTheme();
   const { document, error } = useDocument("recipes", id);
   const { deleteDocument, response } = useFirestore("recipes");
   const navigate = useNavigate();
@@ -46,11 +46,11 @@ export default function Recipe() {
   };
 
   return (
-    <div className={`recipe ${mode}`}>
+    <div className={`recipe card-${mode}-${color.name}`}>
       {recipeError && <p className="error"> {recipeError}</p>}
       {isPending && <div className="loading">Loading...</div>}
       {recipe && !isPending && (
-        <>
+        <div className={`card-${mode}-${color.name}`}>
           <img
             className="delete"
             src={Trashcan}
@@ -76,7 +76,7 @@ export default function Recipe() {
           <Link to={`/update/${id}`} className="brand">
             <p>Update</p>
           </Link>
-        </>
+        </div>
       )}
     </div>
   );

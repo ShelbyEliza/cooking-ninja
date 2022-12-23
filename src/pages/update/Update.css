@@ -1,10 +1,7 @@
 .update {
   margin: 40px auto;
   max-width: 600px;
-  color: floralwhite;
-}
-.update .page-title {
-  color: floralwhite;
+  padding: 1rem 4rem;
 }
 .update input,
 .update textarea {
@@ -25,7 +22,7 @@
 .update .btn {
   border: 0;
   border-radius: 4px;
-  background: var(--pale-yellow);
+  background: var(--inca-gold);
   cursor: pointer;
   text-decoration: none;
   margin: 20px auto;
@@ -45,19 +42,19 @@
   padding: 6px;
   margin: 8px;
 
-  background: var(--pale-yellow);
-  color: var(--dark-text);
+  background: var(--inca-gold);
   font-size: 0.7em;
 
-  border: 2px solid var(--pale-yellow);
+  border: 2px solid var(--inca-gold);
   border-radius: 4px;
 
   cursor: pointer;
   text-decoration: none;
 }
 .remove-ing:hover {
-  background: pink;
-  border: 2px solid rgb(253, 109, 121);
+  background: var(--pink-cherry);
+  border: 2px solid var(--pink-cherry);
+  color: var(--noodles);
 }
 
 .new-ing {
@@ -67,4 +64,8 @@
 .update .add {
   margin-bottom: 26px;
   margin-left: 6px;
+}
+.update-btn:hover,
+.add:hover {
+  background: var(--biscuit);
 }

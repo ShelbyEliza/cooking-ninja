@@ -1,10 +1,7 @@
 .create {
   max-width: 600px;
   margin: 40px auto;
-  color: floralwhite;
-}
-.create h2 {
-  color: floralwhite;
+  padding: 1rem 4rem;
 }
 .create label span {
   display: block;
@@ -20,7 +17,8 @@
   padding: 8px 20px;
   border: 0;
   border-radius: 4px;
-  background: var(--honey);
+  background: var(--inca-gold);
+  color: var(--noodles);
   cursor: pointer;
   text-decoration: none;
   margin: 20px auto;
@@ -45,14 +43,62 @@
 
   font-size: 20px;
 }
-.rating-option {
-  width: 40px;
-  height: 40px;
+
+/* -------------------- Rating --------------------- */
+
+.rating-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
+}
+.rating-fieldset {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
 }
 
+.rating-container div {
+  margin-top: 12px;
+  margin-left: 12px;
+}
+.rating-holder {
+  font-size: 20px;
+  display: flex;
+  flex-direction: 20%;
+  justify-content: space-between;
+
+  margin: 4px;
+}
+
+.rating-option {
+  display: flex;
+  align-items: center;
+  padding: 0.6rem 1rem;
+
+  border: 1px solid var(--inca-gold);
+  border-radius: 50%;
+
+  color: var(--inca-gold);
+  text-align: center;
+
+  font-size: 1rem;
+
+  cursor: pointer;
+}
+
+.not-selected:hover {
+  box-shadow: 0 0 0.4rem var(--inca-gold);
+  background: var(--inca-gold);
+  color: var(--biscuit);
+}
+
+.rating {
+  display: none;
+}
+.selected {
+  background: var(--inca-gold);
+  color: var(--biscuit);
+}
+
+/* -------------------- Tag --------------------- */
 .tag-container {
   margin: 10px 0 0 0;
 }
@@ -62,23 +108,16 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 6px;
-  font-size: 18px;
-  /* justify-content: space-between;
-  align-items: center; */
+  font-size: 1.2rem;
 }
 
 .tag-option {
-  /* padding: 20px; */
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  /* border: 1px solid peru; */
 }
 .tag-option input {
   width: 10px;
   height: 10px;
   margin-right: 10px;
-}
-fieldset {
-  margin-top: 10px;
 }

@@ -1,14 +1,17 @@
 /* brings styles to bottom of page: min-height */
-.App {
+.app {
   min-height: 100%;
 }
-.App.dark {
-  background: var(--serious-plum);
+.app-dark {
+  background: var(--carbon);
 }
-.App .centering-app {
+.app-light {
+  background: var(--biscuit);
+}
+.app .centering-app {
   display: flex;
   justify-content: center;
 }
-.App .side-by-side {
+.app .side-by-side {
   display: flex;
 }

@@ -1,35 +1,48 @@
+import "../pages/create/Create.css";
+import { useState } from "react";
 const ratingList = [1, 2, 3, 4, 5];
 
 export default function Rating({ handleRating, defaultRating }) {
+  const [selectedRating, setSelectedRating] = useState(
+    defaultRating ? defaultRating : null
+  );
+
+  const selectRating = (rating) => {
+    setSelectedRating(rating);
+    handleRating(rating);
+  };
+
   return (
-    <fieldset>
-      <legend>Rating</legend>
-      <div className="rating-container">
+    <div className="rating-container">
+      <fieldset className="rating-fieldset">
+        <legend>Rating</legend>
         {ratingList.map((rating) => {
-          let checked = false;
-          if (defaultRating) {
-            // eslint-disable-next-line eqeqeq
-            if (defaultRating == rating) {
-              checked = true;
-            }
-          }
           return (
-            <div className="rating-option" key={rating}>
+            <div className="rating-holder" key={rating}>
               <input
+                className="rating"
                 name="rating"
                 type="radio"
                 id={rating}
                 value={rating}
-                onChange={(e) => handleRating(e)}
-                checked={checked ? true : false}
+                onChange={(e) => selectRating(rating)}
+                checked={rating === selectedRating ? true : false}
+                required
               />
-              <label className="rating-label" htmlFor={rating}>
+              <label
+                className={
+                  rating === selectedRating
+                    ? `selected rating-option`
+                    : `rating-option not-selected`
+                }
+                htmlFor={rating}
+              >
                 {rating}
               </label>
             </div>
           );
         })}
-      </div>
-    </fieldset>
+      </fieldset>
+    </div>
   );
 }

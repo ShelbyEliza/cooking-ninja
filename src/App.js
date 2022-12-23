@@ -2,10 +2,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // page components:
 import Navbar from "./components/Navbar";
-import ThemeSelector from "./components/ThemeSelector";
-import Home from "./pages/home/Home";
+import Home from "./pages/Home";
 import Create from "./pages/create/Create";
-import Search from "./pages/search/Search";
+import Search from "./pages/Search";
 import Recipe from "./pages/recipe/Recipe";
 import Update from "./pages/update/Update";
 
@@ -17,12 +16,11 @@ function App() {
   const { mode } = useTheme();
 
   return (
-    <div className={`App ${mode}`}>
+    <div className={`app app-${mode}`}>
       <BrowserRouter>
         <Navbar />
         <div className="centering-app">
           <div className="side-by-side">
-            <ThemeSelector />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/create" element={<Create />} />
