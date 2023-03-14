@@ -1,0 +1,6 @@
+Check for bugs
+CSS for Navbar.js, Login.js, Signup.js
+Add recaptchav3
+
+Create disabled button style
+Change Disabled button hover style 

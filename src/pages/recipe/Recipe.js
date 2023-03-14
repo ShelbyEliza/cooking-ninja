@@ -14,7 +14,7 @@ export default function Recipe() {
   const { id } = useParams();
   const { mode, color } = useTheme();
   const { document, error } = useDocument("recipes", id);
-  const { deleteDocument, response } = useFirestore("recipes");
+  const { deleteRecipe, response } = useFirestore("recipes");
   const navigate = useNavigate();
 
   const [recipe, setRecipe] = useState(null);
@@ -41,7 +41,7 @@ export default function Recipe() {
   }, [document, error]);
 
   const handleDelete = (id) => {
-    deleteDocument(id);
+    deleteRecipe(id);
     setIsPending(true);
   };
 

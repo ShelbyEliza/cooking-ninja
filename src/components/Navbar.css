@@ -36,7 +36,10 @@ nav {
 }
 
 /* --------- create ------------ */
-.create-link {
+.create-link,
+.signup-link,
+.login-link,
+.logout-link {
   display: flex;
   margin-right: 3rem;
   padding: 0.8rem;
@@ -45,11 +48,19 @@ nav {
 
   border: 2px solid var(--inca-gold);
 }
-.create-text {
+.create-text,
+.signup-text,
+.login-text,
+.logout-text {
   line-height: 1.2;
 }
 
-.create-link:hover {
+.create-link:hover,
+.signup-link:hover,
+.login-link:hover,
+.logout-link:hover {
+  cursor: pointer;
+
   box-shadow: 0 0 0.4rem var(--inca-gold);
 }
 
@@ -61,7 +72,7 @@ nav {
   padding: 0.3rem 2rem;
   align-items: center;
 
-  box-shadow: 0 1rem 2rem var(--mustard-trans);
+  /* box-shadow: 0 1rem 2rem var(--mustard-trans); */
 
   background: var(--inca-gold);
 }

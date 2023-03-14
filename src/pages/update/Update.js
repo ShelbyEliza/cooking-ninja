@@ -16,7 +16,7 @@ const Update = () => {
   const { mode, color } = useTheme();
   const navigate = useNavigate();
   const ingredientInput = useRef(null);
-  const { updateDocument, response } = useFirestore("recipes");
+  const { updateRecipe } = useFirestore("recipes");
   const { document, error } = useDocument("recipes", id);
 
   const [isPending, setIsPending] = useState(false);
@@ -80,15 +80,16 @@ const Update = () => {
     e.preventDefault();
     setIsPending(true);
 
-    await updateDocument(id, recipe);
-    setIsPending(false);
+    await updateRecipe(id, recipe);
+    await setIsPending(false);
+    navigate("/");
   };
 
-  useEffect(() => {
-    if (response.success) {
-      navigate("/");
-    }
-  }, [response.success, navigate]);
+  // useEffect(() => {
+  //   if (response.success) {
+  //     navigate("/");
+  //   }
+  // }, [response.success, navigate]);
 
   return (
     <div className={`update card-${mode}-${color.name}`}>

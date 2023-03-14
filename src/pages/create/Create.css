@@ -87,7 +87,7 @@
 .not-selected:hover {
   box-shadow: 0 0 0.4rem var(--inca-gold);
   background: var(--inca-gold);
-  color: var(--biscuit);
+  color: var(--noodles);
 }
 
 .rating {
@@ -95,7 +95,7 @@
 }
 .selected {
   background: var(--inca-gold);
-  color: var(--biscuit);
+  color: var(--noodles);
 }
 
 /* -------------------- Tag --------------------- */

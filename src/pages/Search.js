@@ -40,7 +40,6 @@ export default function Search() {
       });
     }
     setRecipes(results);
-    console.log(results);
   }, [allDocuments, query, queryLower, queryUpper]);
 
   return (

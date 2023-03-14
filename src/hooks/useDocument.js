@@ -1,15 +1,25 @@
 import { useState, useEffect } from "react";
-import { projectFirestore } from "../firebase/config";
+import { db } from "../firebase/config";
 
-export const useDocument = (collection, id) => {
+import { useAuthContext } from "./useAuthContext";
+
+import { collection, doc, onSnapshot } from "firebase/firestore";
+
+export const useDocument = (coll, id) => {
+  const { user } = useAuthContext();
   const [document, setDocument] = useState(null);
   const [error, setError] = useState(null);
 
+  // TO DO: changes will break how all pages use this hook
+
   // realtime data for document:
   useEffect(() => {
-    const ref = projectFirestore.collection(collection).doc(id);
+    let usersDoc = doc(db, "users", user.uid);
+    let collRef = collection(usersDoc, coll);
+    let docRef = doc(collRef, id);
 
-    const unsubscribe = ref.onSnapshot(
+    const unsubscribe = onSnapshot(
+      docRef,
       (snapshot) => {
         if (snapshot.data()) {
           setDocument({ ...snapshot.data(), id: snapshot.id });
@@ -25,7 +35,7 @@ export const useDocument = (collection, id) => {
     );
 
     return () => unsubscribe();
-  }, [collection, id]);
+  }, [coll, id, user.uid]);
 
   return { document, error };
 };

@@ -11,7 +11,7 @@ import Tags from "../../components/Tags";
 export default function Create() {
   const navigate = useNavigate();
   const { mode, color } = useTheme();
-  const { addDocument } = useFirestore("recipes");
+  const { addRecipe } = useFirestore("recipes");
 
   const ingredientInput = useRef(null);
 
@@ -27,7 +27,6 @@ export default function Create() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(ingredients);
     setIsSubmitted(true);
     const doc = {
       title,
@@ -39,7 +38,7 @@ export default function Create() {
       link,
     };
 
-    addDocument(doc);
+    addRecipe(doc);
   };
 
   useEffect(() => {

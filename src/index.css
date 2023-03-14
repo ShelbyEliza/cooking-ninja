@@ -3,12 +3,17 @@
 
 :root {
   --inca-gold: #c08224;
-  --mustard-trans: #dba85b3f;
-  --biscuit: #feeacb;
+
   --noodles: #ffe0b1;
+  /* --noodles: #c04424; */
+
   --black-pearl: #152429;
   --carbon: #333333ff;
+
   --pink-cherry: rgb(109, 46, 57);
+
+  /* --biscuit: #feeacb; */
+  /* --mustard-trans: #dba85b3f; */
 }
 
 /* base styles */
@@ -52,6 +57,9 @@ fieldset {
   margin-top: 1rem;
   border: 0.2rem solid var(--inca-gold);
 }
+li {
+  list-style: none;
+}
 
 .site-title {
   font-family: "Cinzel", serif;
@@ -91,12 +99,14 @@ fieldset {
 .card-light-black-pearl h3,
 .card-light-black-pearl div,
 .card-light-black-pearl span,
-.card-dark-black-pearl span {
+.card-dark-black-pearl span,
+.card-dark-black-pearl legend,
+.card-light-black-pearl legend {
   color: var(--noodles);
 }
 .card-dark-black-pearl p,
 .card-light-black-pearl p {
-  color: var(--biscuit);
+  color: var(--noodles);
 }
 
 /* noodles */

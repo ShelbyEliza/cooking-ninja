@@ -6,6 +6,8 @@
   margin: auto;
 }
 .recipe-list .card {
+  border: 1px solid var(--inca-gold);
+
   position: relative;
   padding: 20px;
 
@@ -13,7 +15,7 @@
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.05);
 
   transition: all 0.3s ease;
-  max-height: max-content;
+  height: 250px;
 }
 .recipe-list .card:hover {
   transform: rotate(3deg);

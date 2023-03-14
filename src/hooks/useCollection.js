@@ -1,24 +1,41 @@
 import { useState, useEffect, useRef } from "react";
-import { projectFirestore } from "../firebase/config";
+import { db } from "../firebase/config";
 
-export const useCollection = (collection, _query, _orderBy) => {
+import { useAuthContext } from "./useAuthContext";
+
+// firebase imports:
+import {
+  doc,
+  collection,
+  query,
+  where,
+  orderBy,
+  onSnapshot,
+} from "firebase/firestore";
+
+export const useCollection = (coll, _q, _oB) => {
+  const { user } = useAuthContext();
   const [documents, setDocuments] = useState(null);
   const [error, setError] = useState(null);
 
-  const query = useRef(_query).current;
-  const orderBy = useRef(_orderBy).current;
+  // TO DO: changes will break how all pages use this hook
+
+  const q = useRef(_q).current;
+  const oB = useRef(_oB).current;
 
   useEffect(() => {
-    let ref = projectFirestore.collection(collection);
+    let ref = doc(db, "users", user.uid);
+    ref = collection(ref, coll);
 
-    if (query) {
-      ref = ref.where(...query);
+    if (q) {
+      ref = query(ref, where(...q));
     }
-    if (orderBy) {
-      ref = ref.orderBy(...orderBy);
+    if (oB) {
+      ref = orderBy(ref, where(...oB));
     }
 
-    const unsubscribe = ref.onSnapshot(
+    const unsubscribe = onSnapshot(
+      ref,
       (snapshot) => {
         let results = [];
         snapshot.docs.forEach((doc) => {
@@ -37,7 +54,7 @@ export const useCollection = (collection, _query, _orderBy) => {
 
     // unsubscribe on unmount
     return () => unsubscribe();
-  }, [collection, query, orderBy]);
+  }, [coll, q, oB, user.uid]);
 
   return { documents, error };
 };
