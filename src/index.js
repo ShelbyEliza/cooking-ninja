@@ -1,15 +1,17 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
+import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { ThemeProvider } from "./context/ThemeContext";
+import { AuthContextProvider } from "./context/AuthContext";
 
-const root = createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
+    <AuthContextProvider>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </AuthContextProvider>
+  </React.StrictMode>
 );

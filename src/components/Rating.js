@@ -1,4 +1,4 @@
-import "../pages/create/Create.css";
+import "../pages/create-update/TagsRating.css";
 import { useState } from "react";
 const ratingList = [1, 2, 3, 4, 5];
 

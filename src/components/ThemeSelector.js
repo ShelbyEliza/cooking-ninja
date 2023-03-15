@@ -6,6 +6,7 @@ import { useTheme } from "../hooks/useTheme";
 const themeColors = [
   {
     id: "#ffe0b1",
+    // id: "#c04424",
     name: "noodles",
     default: false,
   },

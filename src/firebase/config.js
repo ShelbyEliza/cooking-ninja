@@ -1,5 +1,7 @@
-import firebase from "firebase/app";
-import "firebase/firestore";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBRtPvxH7umG2MbtDhD9r3BA_MQWbxhMls",
@@ -8,15 +10,21 @@ const firebaseConfig = {
   storageBucket: "larder-to-table.appspot.com",
   messagingSenderId: "94101149481",
   appId: "1:94101149481:web:42e8083b966cb633da0938",
+  siteKey: "6Lc3HQQlAAAAADjRKoDQu05Z3Ga5tYwOU3TRbTtR",
 };
 
-// init firebase
-firebase.initializeApp(firebaseConfig);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+initializeAppCheck(app, {
+  provider: new ReCaptchaV3Provider(firebaseConfig.siteKey),
+
+  // Optional argument. If true, the SDK automatically refreshes App Check
+  // tokens as needed.
+  isTokenAutoRefreshEnabled: true,
+});
 
 // init services
-const projectFirestore = firebase.firestore();
+const db = getFirestore();
+const auth = getAuth();
 
-// timestamp
-const timestamp = firebase.firestore.Timestamp;
-
-export { projectFirestore, timestamp };
+export { db, auth };

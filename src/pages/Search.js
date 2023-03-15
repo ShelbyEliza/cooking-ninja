@@ -40,15 +40,12 @@ export default function Search() {
       });
     }
     setRecipes(results);
-    console.log(results);
   }, [allDocuments, query, queryLower, queryUpper]);
 
   return (
     <div className="search-results">
-      <h2 className={`page-title ${mode}`}>Search Page</h2>
-      {query && (
-        <h3 className={`page-title ${mode}`}>Recipes including "{query}"</h3>
-      )}
+      <h2 className={`page-title ${mode}`}>Searching for Recipes including:</h2>
+      {query && <h3 className={`page-title ${mode}`}>"{query}"</h3>}
       {recipes && <RecipeList recipes={recipes} />}
     </div>
   );

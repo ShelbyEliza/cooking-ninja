@@ -40,5 +40,12 @@
 }
 
 
--------------- 
-React-scripts needs to be v5+ to work with Node.js v17+
+------------ TO DO: ------------------
+Check for bugs
+CSS for Navbar.js, Login.js, Signup.js
+Add recaptchav3
+
+Create disabled button style
+Change Disabled button hover style 
+
+--------------------------------------

@@ -1,5 +1,6 @@
 // styles:
-import "./Create.css";
+import "./TagsRating.css";
+import "./CreateUpdate.css";
 
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -10,8 +11,8 @@ import Tags from "../../components/Tags";
 
 export default function Create() {
   const navigate = useNavigate();
-  const { mode, color } = useTheme();
-  const { addDocument } = useFirestore("recipes");
+  const { mode } = useTheme();
+  const { addRecipe } = useFirestore("recipes");
 
   const ingredientInput = useRef(null);
 
@@ -27,7 +28,6 @@ export default function Create() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(ingredients);
     setIsSubmitted(true);
     const doc = {
       title,
@@ -39,7 +39,7 @@ export default function Create() {
       link,
     };
 
-    addDocument(doc);
+    addRecipe(doc);
   };
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export default function Create() {
   };
 
   return (
-    <div className={`create card-${mode}-${color.name}`}>
+    <div className={`create card-${mode}`}>
       <h3 className="page-title">Add a New Recipe</h3>
       <form onSubmit={handleSubmit} autoComplete="off">
         <div className="title-time">
@@ -105,6 +105,8 @@ export default function Create() {
             />
           </label>
         </div>
+
+        <div className="ingredient-container"></div>
         <label>
           <span>Recipe Ingredients</span>
           <div className="ingredients">
@@ -114,20 +116,27 @@ export default function Create() {
               value={newIngredient}
               ref={ingredientInput}
             />
-            <button onClick={handleAdd} className="btn">
-              Add
+            <button onClick={handleAdd} className="btn add">
+              +
             </button>
           </div>
         </label>
 
-        <p>
+        <div>
           Current Ingredients:{" "}
-          {ingredients.map((i) => (
-            <em key={i} onClick={(e) => removeAddedIng(e)}>
-              {i},{" "}
-            </em>
-          ))}
-        </p>
+          <div className="current-ing-list">
+            {ingredients.map((i) => (
+              <em
+                key={i}
+                className="remove-ing"
+                onClick={(e) => removeAddedIng(e)}
+              >
+                {/* {i},{" "} */}
+                {i}
+              </em>
+            ))}
+          </div>
+        </div>
 
         <label>
           <span>Recipe Method:</span>
@@ -152,9 +161,9 @@ export default function Create() {
           <Rating handleRating={handleRating} />
         </>
         {isSubmitted ? (
-          <button className="button">Adding Recipe...</button>
+          <button className="btn submit-btn">Adding Recipe...</button>
         ) : (
-          <button className="button">Submit</button>
+          <button className="btn submit-btn">Submit</button>
         )}
       </form>
     </div>
