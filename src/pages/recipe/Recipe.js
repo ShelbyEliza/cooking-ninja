@@ -12,7 +12,7 @@ import Trashcan from "../../assets/delete-icon.svg";
 
 export default function Recipe() {
   const { id } = useParams();
-  const { mode, color } = useTheme();
+  const { mode } = useTheme();
   const { document, error } = useDocument("recipes", id);
   const { deleteRecipe, response } = useFirestore("recipes");
   const navigate = useNavigate();

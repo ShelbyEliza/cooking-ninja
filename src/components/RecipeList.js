@@ -8,7 +8,7 @@ import { useFirestore } from "../hooks/useFirestore";
 
 export default function RecipeList({ recipes }) {
   const { deleteRecipe, error } = useFirestore("recipes");
-  const { mode, color } = useTheme();
+  const { mode } = useTheme();
   if (recipes.length === 0) {
     return <div className="error">Sorry, no recipes found...</div>;
   }
