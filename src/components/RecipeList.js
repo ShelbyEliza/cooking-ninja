@@ -23,7 +23,7 @@ export default function RecipeList({ recipes }) {
   return (
     <div className="recipe-list">
       {recipes.map((recipe) => (
-        <div key={recipe.id} className={`card card-${mode}-${color.name}`}>
+        <div key={recipe.id} className={`card card-${mode}`}>
           <h3 className="card-title">{recipe.title}</h3>
           <p className="card-time">{recipe.cookingTime} minutes</p>
           <div className="card-method">{recipe.method.substring(0, 20)}...</div>

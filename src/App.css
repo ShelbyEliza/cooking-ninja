@@ -3,7 +3,7 @@
   min-height: 100%;
 }
 .app-dark {
-  background: var(--carbon);
+  background: var(--black-pearl);
 }
 .app-light {
   background: var(--noodles);

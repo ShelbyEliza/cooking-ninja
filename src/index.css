@@ -2,18 +2,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Pacifico&display=swap");
 
 :root {
-  --inca-gold: #c08224;
-
-  --noodles: #ffe0b1;
-  /* --noodles: #c04424; */
-
   --black-pearl: #152429;
+  --noodles: #ffe0b1;
+
+  --inca-gold: #c08224;
   --carbon: #333333ff;
 
   --pink-cherry: rgb(109, 46, 57);
-
-  /* --biscuit: #feeacb; */
-  /* --mustard-trans: #dba85b3f; */
+  /* --stay-the-night: #324561; */
 }
 
 /* base styles */
@@ -55,8 +51,9 @@ legend {
 }
 fieldset {
   margin-top: 1rem;
-  border: 0.2rem solid var(--inca-gold);
+  border-radius: 1rem;
 }
+
 li {
   list-style: none;
 }
@@ -68,7 +65,6 @@ li {
   text-align: center;
   margin: 40px auto;
   font-family: "Cinzel", serif;
-  /* color: var(--carbon); */
 }
 .loading,
 .error {
@@ -84,67 +80,26 @@ li {
   margin-top: 2rem;
 }
 
-/* search results */
-.search-results.dark,
-.page-title.dark {
-  color: floralwhite;
-}
-/* black-pearl */
-.card-dark-black-pearl,
-.card-light-black-pearl {
-  background: var(--black-pearl);
-}
-.card-dark-black-pearl h3,
-.card-dark-black-pearl div,
-.card-light-black-pearl h3,
-.card-light-black-pearl div,
-.card-light-black-pearl span,
-.card-dark-black-pearl span,
-.card-dark-black-pearl legend,
-.card-light-black-pearl legend {
-  color: var(--noodles);
-}
-.card-dark-black-pearl p,
-.card-light-black-pearl p {
-  color: var(--noodles);
+.card,
+.recipe {
+  border: 1px solid var(--inca-gold);
+  border-radius: 4px;
 }
 
-/* noodles */
-.card-dark-noodles,
-.card-light-noodles {
-  background: var(--noodles);
+/* RecipeList, Recipe: Dark Mode */
+.card-dark,
+.empty-list-dark {
+  color: var(--noodles);
+}
+.card-dark fieldset {
+  border: 1px solid var(--noodles);
 }
 
-.card-dark-noodles h3,
-.card-dark-noodles div,
-.card-light-noodles h3,
-.card-light-noodles div,
-.card-light-noodles span,
-.card-dark-noodles span {
+/* RecipeList, Recipe: Light Mode */
+.card-light,
+.empty-list-light {
   color: var(--black-pearl);
 }
-.card-dark-noodles p,
-.card-light-noodles p {
-  color: var(--carbon);
-}
-
-/* recipe */
-/* black-pearl */
-.recipe-dark-black-pearl,
-.recipe-light-black-pearl {
-  color: var(--noodles);
-}
-.recipe-dark-black-pearl,
-.recipe-light-black-pearl {
-  background: var(--black-pearl);
-}
-
-/* noodles */
-.recipe-dark-noodles,
-.recipe-light-noodles {
-  color: var(--carbon);
-}
-.recipe-dark-noodles,
-.recipe-light-noodles {
-  background: var(--noodles);
+.card-light fieldset {
+  border: 1px solid var(--black-pearl);
 }

@@ -46,11 +46,11 @@ export default function Recipe() {
   };
 
   return (
-    <div className={`recipe card-${mode}-${color.name}`}>
+    <div className={`recipe card-${mode}`}>
       {recipeError && <p className="error"> {recipeError}</p>}
       {isPending && <div className="loading">Loading...</div>}
       {recipe && !isPending && (
-        <div className={`card-${mode}-${color.name}`}>
+        <div>
           <img
             className="delete"
             src={Trashcan}

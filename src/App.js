@@ -6,10 +6,10 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Login from "./pages/admin/Login";
 import Signup from "./pages/admin/Signup";
-import Create from "./pages/create/Create";
+import Create from "./pages/create-update/Create";
 import Search from "./pages/Search";
 import Recipe from "./pages/recipe/Recipe";
-import Update from "./pages/update/Update";
+import Update from "./pages/create-update/Update";
 
 // styles:
 import "./App.css";

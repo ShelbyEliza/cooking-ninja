@@ -1,0 +1,95 @@
+.create,
+.update {
+  max-width: 600px;
+  margin: 4px auto;
+  padding: 0.6rem 4rem;
+
+  border: 1px solid var(--inca-gold);
+  border-radius: 0.4rem;
+}
+
+.update input,
+.create input,
+.update textarea,
+.create textarea {
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+.create p,
+.update p {
+  margin-top: 10px;
+  font-size: 0.8em;
+}
+
+.title-time {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  align-items: end;
+  gap: 40px;
+}
+
+/* ingredients */
+.ingredients {
+  display: flex;
+}
+.current-ing-list {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-bottom: 16px;
+  padding-top: 16px;
+  margin: 4px 0px;
+
+  border: 1px solid var(--inca-gold);
+  border-radius: 4px;
+}
+.remove-ing {
+  padding: 6px;
+  margin: 8px;
+
+  background: var(--inca-gold);
+  font-size: 0.7em;
+
+  border: 2px solid var(--inca-gold);
+  border-radius: 4px;
+
+  cursor: pointer;
+  text-decoration: none;
+}
+.remove-ing:hover {
+  background: var(--pink-cherry);
+  border: 2px solid var(--pink-cherry);
+  color: var(--noodles);
+}
+
+/* buttons */
+.update .btn,
+.create .btn {
+  display: block;
+  margin: auto;
+  padding: 8px 20px;
+  text-align: center;
+
+  background: var(--inca-gold);
+  border: 0;
+  border-radius: 4px;
+
+  text-decoration: none;
+  font-size: 0.8em;
+}
+.create button:hover,
+.update button:hover {
+  background: var(--noodles);
+
+  cursor: pointer;
+  box-shadow: 0 0 0.4rem var(--inca-gold);
+}
+.create .add,
+.update .add {
+  margin-left: 80px;
+}
+.create .submit-btn,
+.update .submit-btn {
+  margin-top: 20px;
+}

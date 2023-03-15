@@ -1,3 +1,5 @@
+import "../pages/create-update/TagsRating.css";
+
 import { useTheme } from "../hooks/useTheme";
 const tagList = [
   "Comfort",

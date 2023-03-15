@@ -1,5 +1,6 @@
 // styles:
-import "./Update.css";
+import "./TagsRating.css";
+import "./CreateUpdate.css";
 
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
@@ -13,7 +14,7 @@ import Rating from "../../components/Rating";
 
 const Update = () => {
   const { id } = useParams();
-  const { mode, color } = useTheme();
+  const { mode } = useTheme();
   const navigate = useNavigate();
   const ingredientInput = useRef(null);
   const { updateRecipe } = useFirestore("recipes");
@@ -81,27 +82,21 @@ const Update = () => {
     setIsPending(true);
 
     await updateRecipe(id, recipe);
-    await setIsPending(false);
+    setIsPending(false);
     navigate("/");
   };
 
-  // useEffect(() => {
-  //   if (response.success) {
-  //     navigate("/");
-  //   }
-  // }, [response.success, navigate]);
-
   return (
-    <div className={`update card-${mode}-${color.name}`}>
+    <div className={`update card-${mode}`}>
       {updateError && <p className="error"> {updateError}</p>}
       {isPending && <div className="loading">Loading...</div>}
       {recipe && !isPending && (
         <div>
-          <h2 className="page-title">Update Recipe</h2>
+          <h3 className="page-title">Update Recipe</h3>
           <form id="update-form">
             <div className="title-time">
-              <div>
-                <label htmlFor="recipe-title">Recipe Title</label>
+              <label htmlFor="recipe-title">
+                <span>Recipe Title</span>
                 <input
                   id="recipe-title"
                   type="text"
@@ -111,10 +106,10 @@ const Update = () => {
                   value={recipe.title}
                   required
                 />
-              </div>
+              </label>
 
-              <div>
-                <label htmlFor="cooking-time">Time (mins)</label>
+              <label htmlFor="cooking-time">
+                <span>Time (mins)</span>
                 <input
                   id="cooking-time"
                   type="number"
@@ -124,30 +119,28 @@ const Update = () => {
                   value={recipe.cookingTime}
                   required
                 />
-              </div>
+              </label>
             </div>
 
             <div className="ingredient-container">
-              <div>
-                <label htmlFor="current-ing">Current Ingredients</label>
-                <div className="current-ing-list">
-                  {recipe.ingredients.map((i) => (
-                    <div
-                      id="current-ing"
-                      className="remove-ing"
-                      key={i}
-                      value={i}
-                      onClick={(e) => handleRemove(e, i)}
-                    >
-                      {i}
-                    </div>
-                  ))}
-                </div>
+              <label htmlFor="current-ing">Current Ingredients</label>
+              <div className="current-ing-list">
+                {recipe.ingredients.map((i) => (
+                  <div
+                    id="current-ing"
+                    className="remove-ing"
+                    key={i}
+                    value={i}
+                    onClick={(e) => handleRemove(e, i)}
+                  >
+                    {i}
+                  </div>
+                ))}
               </div>
 
-              <div>
-                <label htmlFor="new-ing">Recipe Ingredients</label>
-                <div className="new-ing">
+              <label htmlFor="new-ing">
+                <span>Recipe Ingredients</span>
+                <div className="ingredients">
                   <input
                     id="new-ing"
                     type="text"
@@ -159,7 +152,7 @@ const Update = () => {
                     +
                   </button>
                 </div>
-              </div>
+              </label>
             </div>
 
             <div>
@@ -188,13 +181,13 @@ const Update = () => {
           </form>
 
           {isPending ? (
-            <button className="btn update-btn" disabled>
+            <button className="btn submit-btn" disabled>
               Updating Recipe...
             </button>
           ) : (
             <button
               onClick={handleSubmit}
-              className="btn update-btn"
+              className="btn submit-btn"
               form="update-form"
             >
               Submit

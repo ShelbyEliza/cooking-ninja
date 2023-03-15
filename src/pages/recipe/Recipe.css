@@ -1,11 +1,13 @@
 .recipe {
   max-width: 800px;
-  margin: 8px auto;
+  margin: 30px auto;
   text-align: center;
 
   padding: 40px;
   box-sizing: border-box;
   position: relative;
+
+  /* border-radius: 4px; */
 }
 .recipe .page-title {
   margin: 10px 30px;
