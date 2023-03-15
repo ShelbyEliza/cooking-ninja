@@ -41,7 +41,10 @@ export default function Navbar() {
             <li>
               {!isPending && (
                 <button className="logout-link" onClick={logout}>
-                  <p className="logout-text">Logout</p>
+                  <span className="logout-text">
+                    Logout,<br></br>
+                    {user.displayName}?
+                  </span>
                 </button>
               )}
               {isPending && (
